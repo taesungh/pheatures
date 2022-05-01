@@ -1,3 +1,5 @@
+import { Home } from './pages';
+
 import './App.css';
 
 function App() {
@@ -6,6 +8,7 @@ function App() {
       <header className="App-header">
         Pheatures Spreadsheet Online
       </header>
+      <Home />
     </div>
   );
 }
