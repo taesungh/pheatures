@@ -9,7 +9,7 @@ class BaseSymbolList {
   constructor(rawSymbols: RawSymbol[]) {
     this.symbols = Object.fromEntries(
       rawSymbols.map((rawSymbol) => {
-        const symbol = new BaseSymbol(rawSymbol);
+        const symbol = BaseSymbol.fromData(rawSymbol);
         return [symbol.character, symbol];
       })
     );

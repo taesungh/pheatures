@@ -10,14 +10,22 @@ class BaseSymbol {
   sound: string;
   features: FeatureSpecification;
 
-  constructor(rawSymbol: RawSymbol) {
-    this.character = rawSymbol.Unicode;
-    this.sound = rawSymbol.Sound;
-    this.features = Object.fromEntries(
-      featureNames
-        // .filter((name) => name in rawSymbol)
-        .map((name) => [name, rawSymbol[name] as FeatureValue])
-    ) as FeatureSpecification;
+  constructor(character: string, sound: string, features: FeatureSpecification) {
+    this.character = character;
+    this.sound = sound;
+    this.features = features;
+  }
+
+  static fromData(rawSymbol: RawSymbol) {
+    return new BaseSymbol(
+      rawSymbol.Unicode,
+      rawSymbol.Sound,
+      Object.fromEntries(
+        featureNames
+          // .filter((name) => name in rawSymbol)
+          .map((name) => [name, rawSymbol[name] as FeatureValue])
+      ) as FeatureSpecification
+    );
   }
 }
 

@@ -10,6 +10,10 @@ class FeatureChange {
 
   // query is a line such as "+low,-back"
   constructor(query: string) {
+    if (query.length === 0) {
+      this.features = {};
+      return;
+    }
     this.features = Object.fromEntries(
       query.split(",").map((change) => {
         // remove extra whitespace
@@ -20,6 +24,10 @@ class FeatureChange {
         return [name as FeatureName, value as FeatureValue];
       })
     );
+  }
+
+  isNull() {
+    return Object.entries(this.features).length === 0;
   }
 }
 

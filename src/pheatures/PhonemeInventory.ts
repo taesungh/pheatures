@@ -13,7 +13,7 @@ class PhonemeInventory {
       if (!character) {
         throw new Error("Invalid entry in inventory table.");
       }
-      return new ComplexSymbol(
+      return ComplexSymbol.fromBaseSymbol(
         baseSymbols.symbols[character],
         diacritics.map((diacriticCharacter) => diacriticList.items[diacriticCharacter])
       );
