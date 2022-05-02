@@ -1,0 +1,18 @@
+syllabic;             809;    -syllabic                                          > +syllabic
+creaky-voiced;        816;    +voice, -spread gl, -constr gl                     > -spread gl, +constr gl
+voiceless;            805;    +sonorant, +voice                                  > -voice
+breathy-voiced;       804;    +voice, -spread gl, -constr gl                     > +spread gl, -constr gl
+postalveolar;         800;     +consonantal, +coronal, +anterior, -distributed    > -anterior, +distributed
+dental;               810;    +consonantal, +coronal, +anterior, -distributed    > +anterior, +distributed
+fronted velar;        799;     +consonantal, -coronal, +dorsal, +high, -low       > +front, -back
+backed velar;         800;     +consonantal, +dorsal, +high, -low                 > -front, +back
+stressed;             ˈ;    -stress                                            > +stress
+long;                 ː;    -long                                              > +long
+aspirated;            ʰ;    +consonantal, -voice, -spread gl, -constr gl       > +spread gl, -constr gl
+palatalized;          ʲ;    +consonantal                                       > +dorsal, +high, -low, +front, -back
+labialized;           ʷ;    +consonantal, -round                               > +labial, +round
+velarized;            ˠ;    +consonantal, -dorsal                              > +dorsal, +high, -low, -front, +back
+pharyngealized;       ˤ;    +consonantal, -dorsal                              > +dorsal, -high, +low, -front, +back
+nasalized;            771;    +sonorant, -nasal                                   > +nasal
+rhotic;               ˞;   +syllabic, -consonantal, +sonorant, -tap, -trill, -coronal, +dorsal              > +coronal, +anterior, +distributed, -strident
+ejective;             ʼ;    +consonantal, -sonorant, -tap, -trill, -nasal, -voice, -spread gl, -constr gl    > -spread gl, +constr gl
