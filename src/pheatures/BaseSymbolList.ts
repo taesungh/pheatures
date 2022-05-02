@@ -2,10 +2,17 @@ import BaseSymbol, { RawSymbol } from "./BaseSymbol";
 
 // Holds the feature data of the base symbols, those without diacritics
 class BaseSymbolList {
-  symbols: BaseSymbol[];
+  symbols: {
+    [index: string]: BaseSymbol;
+  };
 
   constructor(rawSymbols: RawSymbol[]) {
-    this.symbols = rawSymbols.map((rawSymbol) => new BaseSymbol(rawSymbol));
+    this.symbols = Object.fromEntries(
+      rawSymbols.map((rawSymbol) => {
+        const symbol = new BaseSymbol(rawSymbol);
+        return [symbol.character, symbol];
+      })
+    );
   }
 }
 
