@@ -13,6 +13,14 @@ class ComplexSymbol {
     this.base = baseSymbol;
     this.diacritics = diacritics;
   }
+
+  get features() {
+    return this.base.features;
+  }
+
+  get displayCharacter() {
+    return `${this.base.character}${this.diacritics.map((diacritic) => diacritic.label).join()}`;
+  }
 }
 
 export default ComplexSymbol;
