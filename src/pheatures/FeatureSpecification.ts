@@ -33,7 +33,7 @@ export type FeatureName = typeof featureNames[number];
 
 export enum FeatureValue {
   unknown = "?",
-  notFoundLabel = "?",
+  // notFoundLabel = "?",
   plus = "+",
   minus = "-",
   nul = "0",
@@ -42,7 +42,7 @@ export enum FeatureValue {
   beta = "b",
   nonBeta = "B",
   displayMin = "\u2212",
-  displayNon = "-",
+  // displayNon = "-",
   displayNul = " ",
 }
 
