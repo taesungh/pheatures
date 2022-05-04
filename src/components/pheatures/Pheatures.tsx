@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 
-import { SelectFeatures, Spreadsheet } from "components";
+import { InventoryEditor, SelectFeatures, Spreadsheet } from "components";
 
 import FeatureList from "pheatures/FeatureList";
 import useDiacritics from "services/useDiacritics";
@@ -27,6 +27,15 @@ function Pheatures() {
 
   return (
     <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <InventoryEditor
+          symbolList={symbolList}
+          diacritics={diacritics}
+          phonemeInventory={inventory}
+          symbols={symbols}
+          setSymbols={setSymbols}
+        />
+      </Grid>
       <Grid item xs={12} sm={6}>
         <Paper>
           <Box padding={2}>

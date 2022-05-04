@@ -2,12 +2,16 @@ import { useEffect, useState } from "react";
 
 import Papa, { ParseConfig, ParseStepResult } from "papaparse";
 
-function useFileData<T>(file: string, options?: ParseConfig): T[] {
+function useFileData<T>(file?: string | Papa.LocalFile, options?: ParseConfig): T[] {
   const [data, setData] = useState<T[]>([]);
 
   useEffect(() => {
+    if (file === undefined) {
+      return;
+    }
+
     const partial: T[] = [];
-    Papa.parse(file, {
+    Papa.parse<T>(file, {
       download: true,
       header: options?.header,
       step: (results: ParseStepResult<T>) => {
