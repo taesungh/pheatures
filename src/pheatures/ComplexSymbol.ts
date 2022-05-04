@@ -44,22 +44,25 @@ class ComplexSymbol extends BaseSymbol {
     );
   }
 
-  // Copy symbol to the antecedent chain and then apply the transformation to this symbol
+  // Returns a new ComplexSymbol with the transformation applied to this symbol
+  // This symbol symbol is added to the antecedent chain of the result
   // The specified symbol list is used to determine the resulting character
   apply(transform: FeatureChange, symbolList: BaseSymbolList) {
     // note that diacritics and features are objects, so the references need to be changed
-    this.antecedent = new ComplexSymbol(this.character, this.sound, this.diacritics, this.features);
+    const result = new ComplexSymbol(
+      // set character to unknown
+      "?",
+      this.sound,
+      // remove diacritics, to be recalculated when determining character
+      [],
+      // apply transformation features
+      { ...this.features, ...transform.features }
+    );
+    result.antecedent = this;
 
-    // apply transformation features
-    this.features = { ...this.features, ...transform.features };
+    result._determineCharacter(symbolList);
 
-    // set character to unknown
-    this.character = "?";
-    // remove diacritics, to be calculated when determining character
-    this.diacritics = [];
-    this._determineCharacter(symbolList);
-
-    return this;
+    return result;
   }
 
   _determineCharacter(symbolList: BaseSymbolList) {

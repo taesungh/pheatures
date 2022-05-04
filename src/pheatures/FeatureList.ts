@@ -40,10 +40,10 @@ class FeatureList {
 
     if (runTransform) {
       // run transformation
-      this.items.forEach((symbol) => {
+      this.items = this.items.map((symbol) => {
         // TODO: dependencies
         // transform.apply(dependencies)
-        symbol.apply(transform, symbolList);
+        return symbol.apply(transform, symbolList);
       });
     }
   }
