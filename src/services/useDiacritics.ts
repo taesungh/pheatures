@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 import Diacritics from "pheatures/Diacritics";
 import useFileData from "utils/useFileData";
 
@@ -8,7 +10,7 @@ function useDiacritics() {
     delimiter: ";",
     header: false,
   });
-  return new Diacritics(diacriticsData);
+  return useMemo(() => new Diacritics(diacriticsData), [diacriticsData]);
 }
 
 export default useDiacritics;

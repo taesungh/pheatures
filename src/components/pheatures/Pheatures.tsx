@@ -12,12 +12,13 @@ import useDiacritics from "services/useDiacritics";
 import usePhonemeInventory from "services/usePhonemeInventory";
 import useSymbolList from "services/useSymbolList";
 
-import EnglishNoDiphthongs from "assets/data/phoneme-inventories/EnglishNoDiphthongs.inv";
+import ComplexSymbol from "pheatures/ComplexSymbol";
 
 function Pheatures() {
   const symbolList = useSymbolList();
   const diacritics = useDiacritics();
-  const inventory = usePhonemeInventory(EnglishNoDiphthongs, symbolList, diacritics);
+  const [symbols, setSymbols] = useState<ComplexSymbol[]>([]);
+  const inventory = usePhonemeInventory(symbols);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [transformQuery, setTransformQuery] = useState("");

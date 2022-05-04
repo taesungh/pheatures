@@ -7,8 +7,6 @@ import PhonemeInventory from "./PhonemeInventory";
 // Runs search and transformation queries on the phoneme inventory
 class FeatureList {
   phonemeInventory: PhonemeInventory;
-  // a reference to the full list of symbols to use when performing transformations
-  symbolList: BaseSymbolList;
   // the symbols selected by the search query
   items: ComplexSymbol[];
   // whether or not the selection was transformed
@@ -20,15 +18,14 @@ class FeatureList {
     transform: string
   ) {
     this.phonemeInventory = phonemeInventory;
-    this.symbolList = symbolList;
 
     // add all symbols in the inventory to the current selection
     this.items = phonemeInventory.symbols.slice();
 
-    this.searchAndTransform(new FeatureChange(query), new FeatureChange(transform));
+    this.searchAndTransform(new FeatureChange(query), new FeatureChange(transform), symbolList);
   }
 
-  searchAndTransform(query: FeatureChange, transform: FeatureChange) {
+  searchAndTransform(query: FeatureChange, transform: FeatureChange, symbolList: BaseSymbolList) {
     const runTransform = !transform.isNull();
 
     // select symbols that match the feature changes in the selection query
@@ -46,7 +43,7 @@ class FeatureList {
       this.items.forEach((symbol) => {
         // TODO: dependencies
         // transform.apply(dependencies)
-        symbol.apply(transform, this.symbolList);
+        symbol.apply(transform, symbolList);
       });
     }
   }

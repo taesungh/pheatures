@@ -1,15 +1,10 @@
-import BaseSymbolList from "pheatures/BaseSymbolList";
-import Diacritics from "pheatures/Diacritics";
-import PhonemeInventory from "pheatures/PhonemeInventory";
-import useFileData from "utils/useFileData";
+import { useMemo } from "react";
 
-function usePhonemeInventory(
-  inventoryFile: string,
-  baseSymbols: BaseSymbolList,
-  diacritics: Diacritics
-) {
-  const phonemeData = useFileData<string[]>(inventoryFile, { delimiter: "\t" });
-  return new PhonemeInventory(phonemeData, baseSymbols, diacritics);
+import ComplexSymbol from "pheatures/ComplexSymbol";
+import PhonemeInventory from "pheatures/PhonemeInventory";
+
+function usePhonemeInventory(symbols: ComplexSymbol[]) {
+  return useMemo(() => new PhonemeInventory(symbols), [symbols]);
 }
 
 export default usePhonemeInventory;
