@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import Autocomplete, { AutocompleteChangeReason } from "@mui/material/Autocomplete";
 import MenuItem from "@mui/material/MenuItem";
-import Paper from "@mui/material/Paper";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -11,7 +10,7 @@ import { FeatureName, featureNames, FeatureValue } from "pheatures/FeatureSpecif
 
 interface SelectFeatureProps {
   index: number;
-  value: FeatureValue;
+  value: FeatureValue | "";
   name?: FeatureName | null;
 }
 
@@ -70,13 +69,13 @@ function SelectFeatures({ setQuery }: SelectFeaturesProps) {
     return (
       <Stack direction="row" sx={{ padding: 1 }}>
         <Select value={value} onChange={handleSelectValue} sx={{ width: "4rem" }}>
-          {[FeatureValue.plus, FeatureValue.minus].map((featureValue) => (
+          {[FeatureValue.plus, FeatureValue.minus, FeatureValue.nul].map((featureValue) => (
             <MenuItem key={featureValue} value={featureValue}>
               {featureValue}
             </MenuItem>
           ))}
         </Select>
-        {value !== FeatureValue.displayNul && (
+        {value !== "" && (
           <Autocomplete
             value={name}
             onChange={handleSelectName}
@@ -97,7 +96,7 @@ function SelectFeatures({ setQuery }: SelectFeaturesProps) {
       ))}
       {(featureQueries.length === 0 ||
         featureQueries[featureQueries.length - 1].name !== undefined) && (
-        <SelectFeature index={featureQueries.length} value={FeatureValue.displayNul} />
+        <SelectFeature index={featureQueries.length} value={""} />
       )}
     </Stack>
   );
