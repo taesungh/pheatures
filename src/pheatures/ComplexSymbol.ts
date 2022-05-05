@@ -89,7 +89,7 @@ class ComplexSymbol extends BaseSymbol {
         return used;
       }
 
-      for (const diacritic of Object.values(diacriticList.items)) {
+      for (const diacritic of diacriticList.items) {
         // skip diacritics that have already been used
         if (used.includes(diacritic)) {
           continue;
