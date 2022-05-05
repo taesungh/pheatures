@@ -23,7 +23,13 @@ function Pheatures() {
   const [searchQuery, setSearchQuery] = useState("");
   const [transformQuery, setTransformQuery] = useState("");
 
-  const featureList = new FeatureList(inventory, symbolList, searchQuery, transformQuery);
+  const featureList = new FeatureList(
+    inventory,
+    symbolList,
+    diacritics,
+    searchQuery,
+    transformQuery
+  );
 
   return (
     <Grid container spacing={2}>

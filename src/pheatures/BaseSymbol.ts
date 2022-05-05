@@ -1,4 +1,9 @@
-import FeatureSpecification, { featureNames, FeatureValue } from "./FeatureSpecification";
+import FeatureChange from "./FeatureChange";
+import FeatureSpecification, {
+  FeatureName,
+  featureNames,
+  FeatureValue,
+} from "./FeatureSpecification";
 
 export interface RawSymbol {
   [index: string]: string;
@@ -14,6 +19,12 @@ class BaseSymbol {
     this.character = character;
     this.sound = sound;
     this.features = features;
+  }
+
+  matches(query: FeatureChange) {
+    return Object.entries(query.features).every(
+      ([name, value]) => this.features[name as FeatureName] === value
+    );
   }
 
   static fromData(rawSymbol: RawSymbol) {
