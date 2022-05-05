@@ -34,8 +34,13 @@ class ComplexSymbol extends BaseSymbol {
     );
   }
 
-  get displayCharacter() {
-    return `${this.character}${this.diacritics.map((diacritic) => diacritic.label).join()}`;
+  // attach diacritic mark to the character
+  get displayCharacter(): string {
+    // TODO: consider variants for displaying below and above
+    // heuristic: sort in reverse order of unicode value which places combining characters first
+    // e.g. voiceless long vowel: ring before triangular colon
+    this.diacritics.sort((a, b) => b.label.charCodeAt(0) - a.label.charCodeAt(0));
+    return `${this.character}${this.diacritics.map((diacritic) => diacritic.label).join("")}`;
   }
 
   // applies the target feature changes of each diacritic to the features of this symbol
