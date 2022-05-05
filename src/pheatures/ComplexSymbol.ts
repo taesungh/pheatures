@@ -15,25 +15,34 @@ class ComplexSymbol extends BaseSymbol {
   constructor(
     character: string,
     sound: string,
-    diacritics: Diacritic[],
-    features: FeatureSpecification
+    features: FeatureSpecification,
+    diacritics: Diacritic[]
   ) {
     super(character, sound, features);
     this.diacritics = diacritics;
     this.antecedent = this;
+    this.compileDiacritics();
   }
 
   static fromBaseSymbol(baseSymbol: BaseSymbol, diacritics: Diacritic[]) {
     return new ComplexSymbol(
       baseSymbol.character,
       baseSymbol.sound,
-      diacritics,
-      baseSymbol.features
+      baseSymbol.features,
+      diacritics
     );
   }
 
   get displayCharacter() {
     return `${this.character}${this.diacritics.map((diacritic) => diacritic.label).join()}`;
+  }
+
+  // applies the target feature changes of each diacritic to the features of this symbol
+  compileDiacritics() {
+    this.diacritics.forEach((diacritic) => {
+      // update features with those of diacritic
+      this.features = { ...this.features, ...diacritic.to.features };
+    });
   }
 
   // check if symbol matches features specified in query
@@ -53,10 +62,10 @@ class ComplexSymbol extends BaseSymbol {
       // set character to unknown
       "?",
       this.sound,
-      // remove diacritics, to be recalculated when determining character
-      [],
       // apply transformation features
-      { ...this.features, ...transform.features }
+      { ...this.features, ...transform.features },
+      // remove diacritics, to be recalculated when determining character
+      []
     );
     result.antecedent = this;
 
