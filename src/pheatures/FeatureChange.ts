@@ -1,5 +1,6 @@
 import Dependency from "./Dependency";
 import FeatureSpecification, { FeatureName, FeatureValue } from "./FeatureSpecification";
+import Message from "./Message";
 
 // Represents a feature matrix
 // based on Symbol.java
@@ -49,7 +50,7 @@ class FeatureChange {
 
   // Take a set of dependencies and apply them to this feature change
   // Returns a list of messages describing any dependencies that are applied
-  applyDependencies(dependencies: Dependency[]): string[] {
+  applyDependencies(dependencies: Dependency[]): Message[] {
     // TODO: handle variables
 
     const messages = dependencies
@@ -59,7 +60,7 @@ class FeatureChange {
       // apply the dependency result to this feature change
       .map((dependency) => {
         this.applyChanges(dependency.to);
-        return "An additional feature change was added due to a dependency";
+        return Message.dependency();
       });
     return messages;
   }

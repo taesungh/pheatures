@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 
-import { InventoryEditor, SelectFeatures, Spreadsheet } from "components";
+import { InventoryEditor, Messages, SelectFeatures, Spreadsheet } from "components";
 
 import ComplexSymbol from "pheatures/ComplexSymbol";
 import FeatureList from "pheatures/FeatureList";
@@ -45,6 +45,11 @@ function Pheatures() {
           setSymbols={setSymbols}
         />
       </Grid>
+
+      <Grid item xs={12}>
+        <Messages messages={featureList.messages} />
+      </Grid>
+
       <Grid item xs={12} sm={6}>
         <Paper>
           <Box padding={2}>

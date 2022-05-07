@@ -4,6 +4,7 @@ import Dependency from "./Dependency";
 import Diacritics from "./Diacritics";
 import FeatureChange from "./FeatureChange";
 import { FeatureName } from "./FeatureSpecification";
+import Message from "./Message";
 import PhonemeInventory from "./PhonemeInventory";
 
 // based on BareFeatureList.java
@@ -13,6 +14,7 @@ class FeatureList {
   // the symbols selected by the search query
   items: ComplexSymbol[];
   // whether or not the selection was transformed
+  messages: Message[];
 
   constructor(
     phonemeInventory: PhonemeInventory,
@@ -29,6 +31,7 @@ class FeatureList {
 
     // add all symbols in the inventory to the current selection
     this.items = phonemeInventory.symbols.slice();
+    this.messages = [];
 
     this.searchAndTransform(
       FeatureChange.fromQuery(selectQuery),
@@ -66,10 +69,12 @@ class FeatureList {
         // if every symbol in the selection already has this feature value
         this.items.every((symbol) => symbol.features[name as FeatureName] === value)
       );
-      console.log("redundant changes", redundantChanges);
+      if (redundantChanges.length > 0) {
+        this.messages.push(Message.redundantChange());
+      }
 
       // apply dependencies to the transformation
-      transform.applyDependencies(dependencies);
+      this.messages.push(...transform.applyDependencies(dependencies));
 
       // run transformation and reselect items
       this.items = this.items.map((symbol) => {
@@ -92,7 +97,7 @@ class FeatureList {
     const minimal = unconstrainedResult.every((items) => items.length > this.items.length);
 
     if (!minimal) {
-      console.log("feature selection is not minimal");
+      this.messages.push(Message.notMinimal());
     }
 
     if (!transform.isNull()) {
@@ -112,7 +117,7 @@ class FeatureList {
       });
 
       if (selectionRedundant) {
-        console.log("a feature selection is not needed for the transformation");
+        this.messages.push(Message.redundantSelection());
       }
     }
   }
