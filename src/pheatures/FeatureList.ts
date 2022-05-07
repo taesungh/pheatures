@@ -1,5 +1,6 @@
 import BaseSymbolList from "./BaseSymbolList";
 import ComplexSymbol from "./ComplexSymbol";
+import Dependency from "./Dependency";
 import Diacritics from "./Diacritics";
 import FeatureChange from "./FeatureChange";
 import PhonemeInventory from "./PhonemeInventory";
@@ -18,6 +19,8 @@ class FeatureList {
     symbolList: BaseSymbolList,
     // a reference to the list of diacritics to use when performing transformations
     diacriticList: Diacritics,
+    // a reference to the list of dependencies to use when performing transformations
+    dependencies: Dependency[],
     query: string,
     transform: string
   ) {
@@ -30,7 +33,8 @@ class FeatureList {
       new FeatureChange(query),
       new FeatureChange(transform),
       symbolList,
-      diacriticList
+      diacriticList,
+      dependencies
     );
   }
 
@@ -38,8 +42,9 @@ class FeatureList {
     query: FeatureChange,
     transform: FeatureChange,
     symbolList: BaseSymbolList,
-    diacriticList: Diacritics
-  ) {
+    diacriticList: Diacritics,
+    dependencies: Dependency[]
+  ): void {
     const runTransform = !transform.isNull();
 
     // select symbols that match the feature changes in the selection query
@@ -53,10 +58,11 @@ class FeatureList {
     // });
 
     if (runTransform) {
-      // run transformation
+      // apply dependencies to the transformation
+      transform.applyDependencies(dependencies);
+
+      // run transformation and reselect items
       this.items = this.items.map((symbol) => {
-        // TODO: dependencies
-        // transform.apply(dependencies)
         return symbol.apply(transform, symbolList, diacriticList);
       });
     }

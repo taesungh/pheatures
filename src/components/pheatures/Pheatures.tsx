@@ -7,16 +7,18 @@ import Typography from "@mui/material/Typography";
 
 import { InventoryEditor, SelectFeatures, Spreadsheet } from "components";
 
+import ComplexSymbol from "pheatures/ComplexSymbol";
 import FeatureList from "pheatures/FeatureList";
+import useDependencies from "services/useDependencies";
 import useDiacritics from "services/useDiacritics";
 import usePhonemeInventory from "services/usePhonemeInventory";
 import useSymbolList from "services/useSymbolList";
 
-import ComplexSymbol from "pheatures/ComplexSymbol";
 
 function Pheatures() {
   const symbolList = useSymbolList();
   const diacritics = useDiacritics();
+  const dependencies = useDependencies();
   const [symbols, setSymbols] = useState<ComplexSymbol[]>([]);
   const inventory = usePhonemeInventory(symbols);
 
@@ -27,6 +29,7 @@ function Pheatures() {
     inventory,
     symbolList,
     diacritics,
+    dependencies,
     searchQuery,
     transformQuery
   );
