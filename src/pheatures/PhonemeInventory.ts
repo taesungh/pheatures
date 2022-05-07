@@ -1,6 +1,7 @@
 import BaseSymbolList from "./BaseSymbolList";
 import ComplexSymbol from "./ComplexSymbol";
 import Diacritics from "./Diacritics";
+import FeatureChange from "./FeatureChange";
 
 // based on Inventory.java
 class PhonemeInventory {
@@ -31,6 +32,11 @@ class PhonemeInventory {
         return ComplexSymbol.fromBaseSymbol(baseSymbol, diacritics);
       })
     );
+  }
+
+  // selects symbols that match the features of the query
+  select(query: FeatureChange): ComplexSymbol[] {
+    return this.symbols.filter((symbol) => symbol.matches(query));
   }
 }
 

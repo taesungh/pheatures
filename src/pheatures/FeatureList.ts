@@ -3,6 +3,7 @@ import ComplexSymbol from "./ComplexSymbol";
 import Dependency from "./Dependency";
 import Diacritics from "./Diacritics";
 import FeatureChange from "./FeatureChange";
+import { FeatureName } from "./FeatureSpecification";
 import PhonemeInventory from "./PhonemeInventory";
 
 // based on BareFeatureList.java
@@ -21,8 +22,8 @@ class FeatureList {
     diacriticList: Diacritics,
     // a reference to the list of dependencies to use when performing transformations
     dependencies: Dependency[],
-    query: string,
-    transform: string
+    selectQuery: string,
+    transformQuery: string
   ) {
     this.phonemeInventory = phonemeInventory;
 
@@ -30,8 +31,8 @@ class FeatureList {
     this.items = phonemeInventory.symbols.slice();
 
     this.searchAndTransform(
-      new FeatureChange(query),
-      new FeatureChange(transform),
+      FeatureChange.fromQuery(selectQuery),
+      FeatureChange.fromQuery(transformQuery),
       symbolList,
       diacriticList,
       dependencies
@@ -47,8 +48,10 @@ class FeatureList {
   ): void {
     const runTransform = !transform.isNull();
 
-    // select symbols that match the feature changes in the selection query
-    this.items = this.phonemeInventory.symbols.filter((symbol) => symbol.matches(query));
+    // select symbols that match the feature values in the selection query
+    this.items = this.phonemeInventory.select(query);
+
+    this._checkMinimality(query, transform);
 
     // // TODO: handle variables with match report
     // this.selection.forEach((symbol, i) => {
@@ -58,6 +61,13 @@ class FeatureList {
     // });
 
     if (runTransform) {
+      // get feature changes which would be vacuous
+      const redundantChanges = Object.entries(transform.features).filter(([name, value]) =>
+        // if every symbol in the selection already has this feature value
+        this.items.every((symbol) => symbol.features[name as FeatureName] === value)
+      );
+      console.log("redundant changes", redundantChanges);
+
       // apply dependencies to the transformation
       transform.applyDependencies(dependencies);
 
@@ -65,6 +75,45 @@ class FeatureList {
       this.items = this.items.map((symbol) => {
         return symbol.apply(transform, symbolList, diacriticList);
       });
+    }
+  }
+
+  // Determines if a feature selection could have been omitted:
+  // either the feature does not further constrain the selection
+  // or the transformation would be equivalent without the selection
+  _checkMinimality(query: FeatureChange, transform: FeatureChange): void {
+    // Array of items which would be selected had one of the features in the selection query been removed
+    const unconstrainedResult = Object.keys(query.features)
+      .map((name) => query.removeFeature(name as FeatureName))
+      .map((reducedQuery) => this.phonemeInventory.select(reducedQuery));
+
+    // the selection is minimal if removing any feature change results in a larger selection
+    // otherwise, the feature change could be removed for the same result
+    const minimal = unconstrainedResult.every((items) => items.length > this.items.length);
+
+    if (!minimal) {
+      console.log("feature selection is not minimal");
+    }
+
+    if (!transform.isNull()) {
+      // select symbols for which the transformation would be vacuous
+      const transformIdentity = new Set<ComplexSymbol>(this.phonemeInventory.select(transform));
+      // hash selected items to look up in redundant selection check
+      const resultSet = new Set<ComplexSymbol>(this.items);
+
+      // if the items included by removing a feature are all part of the transformation identity,
+      // then including that feature is redundant
+      // e.g. selecting -voice and applying +voice could be accomplished without the selection
+      const selectionRedundant = unconstrainedResult.some((items) => {
+        // select items not part of the end result
+        const additionalItems = items.filter((item) => !resultSet.has(item));
+        // check if this greater selection are all in the transformation identity
+        return additionalItems.every((item) => transformIdentity.has(item));
+      });
+
+      if (selectionRedundant) {
+        console.log("a feature selection is not needed for the transformation");
+      }
     }
   }
 }

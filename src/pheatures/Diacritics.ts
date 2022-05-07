@@ -23,8 +23,8 @@ class Diacritics {
       return new Diacritic(
         label,
         description,
-        new FeatureChange(fromQuery),
-        new FeatureChange(toQuery)
+        FeatureChange.fromQuery(fromQuery),
+        FeatureChange.fromQuery(toQuery)
       );
     });
   }

@@ -9,13 +9,16 @@ type PartialFeatureSpecification = Partial<FeatureSpecification>;
 class FeatureChange {
   features: PartialFeatureSpecification;
 
+  constructor(features: PartialFeatureSpecification) {
+    this.features = features;
+  }
+
   // query is a line such as "+low,-back"
-  constructor(query: string) {
+  static fromQuery(query: string): FeatureChange {
     if (query.length === 0) {
-      this.features = {};
-      return;
+      return new FeatureChange({});
     }
-    this.features = Object.fromEntries(
+    const features = Object.fromEntries(
       query.split(",").map((change) => {
         // remove extra whitespace
         change = change.trim();
@@ -25,6 +28,7 @@ class FeatureChange {
         return [name as FeatureName, value as FeatureValue];
       })
     );
+    return new FeatureChange(features);
   }
 
   isNull() {
@@ -58,6 +62,15 @@ class FeatureChange {
         return "An additional feature change was added due to a dependency";
       });
     return messages;
+  }
+
+  // returns a copy of this FeatureChange without the specified feature
+  removeFeature(featureName: FeatureName): FeatureChange {
+    return new FeatureChange(
+      Object.fromEntries(
+        Object.entries(this.features).filter(([name, value]) => name !== featureName)
+      )
+    );
   }
 }
 

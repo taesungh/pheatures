@@ -14,7 +14,7 @@ class Dependency {
   static fromData(dependenciesData: string[][]): Dependency[] {
     return dependenciesData.map((row) => {
       const [fromQuery, toQuery] = row;
-      return new Dependency(new FeatureChange(fromQuery), new FeatureChange(toQuery));
+      return new Dependency(FeatureChange.fromQuery(fromQuery), FeatureChange.fromQuery(toQuery));
     });
   }
 }
