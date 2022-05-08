@@ -1,6 +1,6 @@
+import ComplexSymbol from "./ComplexSymbol";
 import Dependency from "./Dependency";
 import FeatureSpecification, { FeatureName, FeatureValue } from "./FeatureSpecification";
-import Message from "./Message";
 
 // Represents a feature matrix
 // based on Symbol.java
@@ -49,20 +49,20 @@ class FeatureChange {
   }
 
   // Take a set of dependencies and apply them to this feature change
-  // Returns a list of messages describing any dependencies that are applied
-  applyDependencies(dependencies: Dependency[]): Message[] {
+  // Returns the dependencies that are applied
+  applyDependencies(dependencies: Dependency[]): Dependency[] {
     // TODO: handle variables
 
-    const messages = dependencies
+    const applied = dependencies
       // select dependencies where the source matches the current features
       // multiple conflicting dependencies may match, but contradictions should produce a warning
       .filter((dependency) => this.matches(dependency.from))
       // apply the dependency result to this feature change
       .map((dependency) => {
         this.applyChanges(dependency.to);
-        return Message.dependency();
+        return dependency;
       });
-    return messages;
+    return applied;
   }
 
   // returns a copy of this FeatureChange without the specified feature
@@ -72,6 +72,25 @@ class FeatureChange {
         Object.entries(this.features).filter(([name, value]) => name !== featureName)
       )
     );
+  }
+
+  // returns a FeatureChange with the features that would not change on the given array of symbols
+  findVacuous(symbols: ComplexSymbol[]): FeatureChange {
+    return new FeatureChange(
+      Object.fromEntries(
+        Object.entries(this.features).filter(([name, value]) =>
+          // if every symbol already has this feature value
+          symbols.every((symbol) => symbol.features[name as FeatureName] === value)
+        )
+      )
+    );
+  }
+
+  // express feature change in bracket notation
+  toString(): string {
+    return `[${Object.entries(this.features)
+      .map(([name, value]) => `${value}${name}`)
+      .join(", ")}]`;
   }
 }
 

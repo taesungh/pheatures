@@ -17,7 +17,7 @@ function Messages({ messages }: MessagesProps) {
   return (
     <Stack>
       {messages.map((message, i) => (
-        <Alert key={i} className="accordion-alert" severity={message.type}>
+        <Alert key={message.title} className="accordion-alert" severity={message.type}>
           <Accordion
             disableGutters
             elevation={0}
@@ -31,7 +31,7 @@ function Messages({ messages }: MessagesProps) {
             >
               {message.title}
             </AccordionSummary>
-            <AccordionDetails sx={{ padding: "8px 16px" }}>
+            <AccordionDetails sx={{ padding: "4px 8px" }}>
               {message.detail}
             </AccordionDetails>
           </Accordion>

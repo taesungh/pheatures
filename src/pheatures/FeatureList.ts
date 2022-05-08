@@ -65,16 +65,16 @@ class FeatureList {
 
     if (runTransform) {
       // get feature changes which would be vacuous
-      const redundantChanges = Object.entries(transform.features).filter(([name, value]) =>
-        // if every symbol in the selection already has this feature value
-        this.items.every((symbol) => symbol.features[name as FeatureName] === value)
-      );
-      if (redundantChanges.length > 0) {
-        this.messages.push(Message.redundantChange());
+      const redundantChanges = transform.findVacuous(this.items);
+      if (!redundantChanges.isNull()) {
+        this.messages.push(Message.redundantChange(redundantChanges));
       }
 
       // apply dependencies to the transformation
-      this.messages.push(...transform.applyDependencies(dependencies));
+      const appliedDependencies = transform.applyDependencies(dependencies);
+      if (appliedDependencies.length > 0) {
+        this.messages.push(Message.dependency(appliedDependencies));
+      }
 
       // run transformation and reselect items
       this.items = this.items.map((symbol) => {
