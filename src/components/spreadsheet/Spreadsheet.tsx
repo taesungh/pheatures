@@ -10,6 +10,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
+import Typography from "@mui/material/Typography";
 import { visuallyHidden } from "@mui/utils";
 
 import ComplexSymbol from "pheatures/ComplexSymbol";
@@ -153,9 +154,11 @@ function Spreadsheet({ featureList }: SpreadsheetProps) {
               align="center"
               padding="none"
             >
-              {/* if transformed, display antecedent, rightarrow, transformed character */}
-              {symbol.antecedent !== symbol && `${symbol.antecedent.displayCharacter} \u2192 `}
-              {symbol.displayCharacter}
+              <Typography variant="phoneme" component="span">
+                {/* if transformed, display antecedent, rightarrow, transformed character */}
+                {symbol.antecedent !== symbol && `${symbol.antecedent.displayCharacter} \u2192 `}
+                {symbol.displayCharacter}
+              </Typography>
             </TableCell>
 
             {featureNames.map((name) => (
