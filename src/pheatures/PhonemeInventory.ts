@@ -1,6 +1,6 @@
 import BaseSymbolList from "./BaseSymbolList";
 import ComplexSymbol from "./ComplexSymbol";
-import Diacritics from "./Diacritics";
+import { diacriticList } from "./Diacritics";
 import FeatureChange from "./FeatureChange";
 
 // based on Inventory.java
@@ -11,11 +11,7 @@ class PhonemeInventory {
     this.symbols = symbols;
   }
 
-  static fromData(
-    inventoryTable: string[][],
-    baseSymbols: BaseSymbolList,
-    diacriticList: Diacritics
-  ) {
+  static fromData(inventoryTable: string[][], baseSymbols: BaseSymbolList): PhonemeInventory {
     return new PhonemeInventory(
       inventoryTable.map((row) => {
         // extract base symbol and diacritics to apply

@@ -1,0 +1,20 @@
+[
+  ["syllabic", "\u0329", "-syllabic", "+syllabic"],
+  ["creaky-voiced", "\u0330", "+voice, -spread gl, -constr gl", "-spread gl, +constr gl"],
+  ["voiceless", "\u0325", "+sonorant, +voice", "-voice"],
+  ["breathy-voiced", "\u0324", "+voice, -spread gl, -constr gl", "+spread gl, -constr gl"],
+  ["postalveolar", "\u0320", "+consonantal, +coronal, +anterior, -distributed", "-anterior, +distributed"],
+  ["dental", "\u032a", "+consonantal, +coronal, +anterior, -distributed", "+anterior, +distributed"],
+  ["fronted velar", "\u031f", "+consonantal, -coronal, +dorsal, +high, -low", "+front, -back"],
+  ["backed velar", "\u0320", "+consonantal, +dorsal, +high, -low", "-front, +back"],
+  ["stressed", "\u02c8", "-stress", "+stress"],
+  ["long", "\u02d0", "-long", "+long"],
+  ["aspirated", "\u02b0", "+consonantal, -voice, -spread gl, -constr gl", "+spread gl, -constr gl"],
+  ["palatalized", "\u02b2", "+consonantal", "+dorsal, +high, -low, +front, -back"],
+  ["labialized", "\u02b7", "+consonantal, -round", "+labial, +round"],
+  ["velarized", "\u02e0", "+consonantal, -dorsal", "+dorsal, +high, -low, -front, +back"],
+  ["pharyngealized", "\u02e4", "+consonantal, -dorsal", "+dorsal, -high, +low, -front, +back"],
+  ["nasalized", "\u0303", "+sonorant, -nasal", "+nasal"],
+  ["rhotic", "\u02de", "+syllabic, -consonantal, +sonorant, -tap, -trill, -coronal, +dorsal", "+coronal, +anterior, +distributed, -strident"],
+  ["ejective", "\u02bc", "+consonantal, -sonorant, -tap, -trill, -nasal, -voice, -spread gl, -constr gl", "-spread gl, +constr gl"]
+]

@@ -9,30 +9,20 @@ import { InventorySelector, Messages, SelectFeatures, Spreadsheet } from "compon
 
 import ComplexSymbol from "pheatures/ComplexSymbol";
 import FeatureList from "pheatures/FeatureList";
-import useDependencies from "services/useDependencies";
-import useDiacritics from "services/useDiacritics";
 import usePhonemeInventory from "services/usePhonemeInventory";
 import useSymbolList from "services/useSymbolList";
 
 
 function Pheatures() {
   const symbolList = useSymbolList();
-  const diacritics = useDiacritics();
-  const dependencies = useDependencies();
+
   const [symbols, setSymbols] = useState<ComplexSymbol[]>([]);
   const inventory = usePhonemeInventory(symbols);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [transformQuery, setTransformQuery] = useState("");
 
-  const featureList = new FeatureList(
-    inventory,
-    symbolList,
-    diacritics,
-    dependencies,
-    searchQuery,
-    transformQuery
-  );
+  const featureList = new FeatureList(inventory, symbolList, searchQuery, transformQuery);
 
   if (Object.entries(symbolList.symbols).length === 0) {
     return null;
@@ -43,7 +33,6 @@ function Pheatures() {
       <Box padding={2}>
         <InventorySelector
           symbolList={symbolList}
-          diacritics={diacritics}
           phonemeInventory={inventory}
           symbols={symbols}
           setSymbols={setSymbols}

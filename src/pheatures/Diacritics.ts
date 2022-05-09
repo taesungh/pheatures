@@ -2,6 +2,8 @@ import BaseSymbol from "./BaseSymbol";
 import Diacritic from "./Diacritic";
 import FeatureChange from "./FeatureChange";
 
+import diacriticsData from "assets/data/rules/diacritics.json";
+
 // Maintains an array of Diacritic objects in a specific order
 // This order is used when determining the order to display them
 class Diacritics {
@@ -10,15 +12,12 @@ class Diacritics {
   items: Diacritic[];
 
   constructor(diacriticsTable: string[][]) {
-    this.items = diacriticsTable.map(([description, label, query]) => {
+    this.items = diacriticsTable.map(([description, label, fromQuery, toQuery]) => {
       label = label.trim();
       if (label.match(/\d+/)) {
         // numerical labels are converted to their unicode character
         label = String.fromCharCode(Number(label));
       }
-
-      // row contains a feature change such as " +back > -front"
-      const [fromQuery, toQuery] = query.split(">");
 
       return new Diacritic(
         label,
@@ -41,5 +40,7 @@ class Diacritics {
     throw new Error("could not find a matching diacritic from the given label");
   }
 }
+
+export const diacriticList = new Diacritics(diacriticsData);
 
 export default Diacritics;

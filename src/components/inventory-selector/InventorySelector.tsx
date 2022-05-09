@@ -11,7 +11,6 @@ import Tooltip from "@mui/material/Tooltip";
 
 import BaseSymbolList from "pheatures/BaseSymbolList";
 import ComplexSymbol from "pheatures/ComplexSymbol";
-import Diacritics from "pheatures/Diacritics";
 import PhonemeInventory from "pheatures/PhonemeInventory";
 import useFileData from "utils/useFileData";
 
@@ -19,18 +18,12 @@ import inventories from "assets/data/phoneme-inventories";
 
 interface InventorySelectorProps {
   symbolList: BaseSymbolList;
-  diacritics: Diacritics;
   phonemeInventory: PhonemeInventory;
   symbols: ComplexSymbol[];
   setSymbols: React.Dispatch<React.SetStateAction<ComplexSymbol[]>>;
 }
 
-function InventorySelector({
-  symbolList,
-  diacritics,
-  symbols,
-  setSymbols,
-}: InventorySelectorProps) {
+function InventorySelector({ symbolList, symbols, setSymbols }: InventorySelectorProps) {
   const [file, setFile] = useState<File | string>();
   const fileData = useFileData<string[]>(file, { delimiter: "\t" });
   const [fileError, setFileError] = useState<boolean>(false);
@@ -39,13 +32,13 @@ function InventorySelector({
   // call setSymbols with the symbols of the inventory
   useEffect(() => {
     try {
-      const inventory = PhonemeInventory.fromData(fileData, symbolList, diacritics);
+      const inventory = PhonemeInventory.fromData(fileData, symbolList);
       setSymbols(inventory.symbols);
     } catch (error) {
       console.warn(error);
       setFileError(true);
     }
-  }, [fileData, symbolList, diacritics, setSymbols]);
+  }, [fileData, symbolList, setSymbols]);
 
   const [inventoryName, setInventoryName] = useState<string>("");
 

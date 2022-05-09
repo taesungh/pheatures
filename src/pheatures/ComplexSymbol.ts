@@ -1,7 +1,7 @@
 import BaseSymbol from "./BaseSymbol";
 import BaseSymbolList from "./BaseSymbolList";
 import Diacritic from "./Diacritic";
-import Diacritics from "./Diacritics";
+import { diacriticList } from "./Diacritics";
 import FeatureChange from "./FeatureChange";
 import FeatureSpecification, { FeatureName, featureNames } from "./FeatureSpecification";
 
@@ -25,7 +25,7 @@ class ComplexSymbol extends BaseSymbol {
     this.compileDiacritics();
   }
 
-  static fromBaseSymbol(baseSymbol: BaseSymbol, diacritics: Diacritic[]) {
+  static fromBaseSymbol(baseSymbol: BaseSymbol, diacritics: Diacritic[]): ComplexSymbol {
     return new ComplexSymbol(
       baseSymbol.character,
       baseSymbol.sound,
@@ -62,7 +62,7 @@ class ComplexSymbol extends BaseSymbol {
   // Returns a new ComplexSymbol with the transformation applied to this symbol
   // This symbol is added to the antecedent chain of the result
   // The specified symbol list is used to determine the resulting character
-  apply(transform: FeatureChange, symbolList: BaseSymbolList, diacriticList: Diacritics) {
+  apply(transform: FeatureChange, symbolList: BaseSymbolList): ComplexSymbol {
     // note that diacritics and features are objects, so the references need to be changed
     const result = new ComplexSymbol(
       // set character to unknown, to be redetermined when diacritics are applied
@@ -75,13 +75,13 @@ class ComplexSymbol extends BaseSymbol {
     );
     result.antecedent = this;
 
-    result._determineCharacter(symbolList, diacriticList);
+    result._determineCharacter(symbolList);
 
     return result;
   }
 
   // based on FindLabels.java
-  _determineCharacter(symbolList: BaseSymbolList, diacriticList: Diacritics) {
+  _determineCharacter(symbolList: BaseSymbolList): void {
     // array of base symbols in symbol list
     const baseSymbols = Object.values(symbolList.symbols);
 
