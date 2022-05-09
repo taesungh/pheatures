@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -14,7 +15,7 @@ import { visuallyHidden } from "@mui/utils";
 
 import ComplexSymbol from "pheatures/ComplexSymbol";
 import FeatureList from "pheatures/FeatureList";
-import { FeatureName, featureNames } from "pheatures/FeatureSpecification";
+import { FeatureDisplayValues, FeatureName, featureNames } from "pheatures/FeatureSpecification";
 
 const stickyColumn1 = {
   position: "sticky",
@@ -25,7 +26,7 @@ const stickyColumn1 = {
 const stickyColumn2 = {
   position: "sticky",
   left: "46px",
-  padding: "0 1rem",
+  padding: "4px 1rem",
   backgroundColor: "common.white",
   borderRight: "1px solid rgba(224, 224, 224, 1)",
   boxShadow: "12px 0px 16px rgba(0, 0, 0, 0.1)",
@@ -143,6 +144,7 @@ function Spreadsheet({ featureList }: SpreadsheetProps) {
         const antecedentCharacter = symbol.antecedent.displayCharacter;
 
         const isItemSelected = isSelected(antecedentCharacter);
+        const undeterminedLabel = symbol.displayCharacter === "?";
         const labelId = `spreadsheet-checkbox-${index}`;
 
         return (
@@ -174,13 +176,27 @@ function Spreadsheet({ featureList }: SpreadsheetProps) {
               <Typography variant="phoneme" component="span">
                 {/* if transformed, display antecedent, rightarrow, transformed character */}
                 {symbol.antecedent !== symbol && `${symbol.antecedent.displayCharacter} \u2192 `}
-                {symbol.displayCharacter}
+                {undeterminedLabel ? (
+                  <Button
+                    variant="contained"
+                    color="warning"
+                    disableElevation
+                    disabled
+                    sx={{ padding: "0 8px", minWidth: 0 }}
+                  >
+                    <Typography variant="phoneme">{symbol.displayCharacter}</Typography>
+                  </Button>
+                ) : (
+                  symbol.displayCharacter
+                )}
               </Typography>
             </TableCell>
 
             {featureNames.map((name) => (
-              <TableCell key={name} align="center">
-                {symbol.features[name]}
+              <TableCell key={name} align="center" padding="none">
+                <Typography variant="featureValue">
+                  {FeatureDisplayValues[symbol.features[name]]}
+                </Typography>
               </TableCell>
             ))}
           </TableRow>

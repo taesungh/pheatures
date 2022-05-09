@@ -32,19 +32,20 @@ export const featureNames = [
 export type FeatureName = typeof featureNames[number];
 
 export enum FeatureValue {
-  unknown = "?",
-  // notFoundLabel = "?",
   plus = "+",
   minus = "-",
   nul = "0",
-  alpha = "a",
-  nonAlpha = "A",
-  beta = "b",
-  nonBeta = "B",
-  displayMin = "\u2212",
-  // displayNon = "-",
-  displayNul = " ",
+  // alpha = "a",
+  // nonAlpha = "A",
+  // beta = "b",
+  // nonBeta = "B",
 }
+
+export const FeatureDisplayValues = {
+  [FeatureValue.plus]: "+",
+  [FeatureValue.minus]: "\u2212",
+  [FeatureValue.nul]: " ",
+};
 
 // variables
 // nonVariables

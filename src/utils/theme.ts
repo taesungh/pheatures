@@ -3,11 +3,13 @@ import { createTheme } from "@mui/material/styles";
 declare module "@mui/material/styles" {
   interface TypographyVariants {
     phoneme: React.CSSProperties;
+    featureValue: React.CSSProperties;
   }
 
   // allow configuration using `createTheme`
   interface TypographyVariantsOptions {
     phoneme?: React.CSSProperties;
+    featureValue?: React.CSSProperties;
   }
 }
 
@@ -15,6 +17,7 @@ declare module "@mui/material/styles" {
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
     phoneme: true;
+    featureValue: true;
   }
 }
 
@@ -27,8 +30,13 @@ const theme = createTheme({
     },
     phoneme: {
       fontFamily: "'Minion 3 Subhead', serif;",
-      fontSize: "28px",
+      fontWeight: 500,
+      fontSize: "32px",
     },
+    featureValue: {
+      fontSize: "18px",
+      fontWeight: 400,
+    }
   },
 });
 
