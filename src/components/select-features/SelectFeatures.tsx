@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import Autocomplete, { AutocompleteChangeReason } from "@mui/material/Autocomplete";
 import MenuItem from "@mui/material/MenuItem";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 
@@ -37,7 +36,7 @@ function SelectFeatures({ setQuery }: SelectFeaturesProps) {
   }, [featureQueries, setQuery]);
 
   function SelectFeature({ index, value, name }: SelectFeatureProps) {
-    const handleSelectValue = (event: SelectChangeEvent) => {
+    const handleSelectValue = (event: React.ChangeEvent<HTMLInputElement>) => {
       setFeatureQueries((featureQueries) => {
         if (index === featureQueries.length) {
           return featureQueries.concat([{ value: event.target.value as FeatureValue }]);
@@ -53,12 +52,15 @@ function SelectFeatures({ setQuery }: SelectFeaturesProps) {
       newValue: FeatureName | null,
       reason: AutocompleteChangeReason
     ) => {
-      if (reason === "clear") {
+      // when clicking on the clear button
+      if (reason === "clear" && event.type === "click") {
+        // remove this row from the queries
         setFeatureQueries((featureQueries) =>
           featureQueries.slice(0, index).concat(featureQueries.slice(index + 1))
         );
         return;
       }
+      // set the value at the index
       setFeatureQueries((featureQueries) => {
         featureQueries = featureQueries.slice();
         featureQueries[index].name = newValue;
@@ -68,13 +70,20 @@ function SelectFeatures({ setQuery }: SelectFeaturesProps) {
 
     return (
       <Stack direction="row" sx={{ padding: 1 }}>
-        <Select value={value} onChange={handleSelectValue} sx={{ width: "4rem" }}>
+        <TextField
+          select
+          id={`feature-value-select-${index}`}
+          value={value}
+          onChange={handleSelectValue}
+          sx={{ width: "5rem" }}
+          label="value"
+        >
           {[FeatureValue.plus, FeatureValue.minus, FeatureValue.nul].map((featureValue) => (
             <MenuItem key={featureValue} value={featureValue}>
               {featureValue}
             </MenuItem>
           ))}
-        </Select>
+        </TextField>
         {value !== "" && (
           <Autocomplete
             value={name}
