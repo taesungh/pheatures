@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
-import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -191,14 +190,14 @@ function Spreadsheet({ featureList }: SpreadsheetProps) {
   );
 
   return (
-    <Paper>
+    <Box>
       <TableContainer sx={{ maxHeight: "60vh" }}>
         <Table stickyHeader sx={{ whiteSpace: "nowrap" }}>
           {tableHead}
           {tableBody}
         </Table>
       </TableContainer>
-    </Paper>
+    </Box>
   );
 }
 

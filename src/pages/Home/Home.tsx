@@ -3,7 +3,7 @@ import { Pheatures } from "components";
 
 function Home() {
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" sx={{ minHeight: "80vh" }}>
       <Pheatures />
     </Container>
   );

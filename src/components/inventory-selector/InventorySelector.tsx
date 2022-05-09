@@ -17,7 +17,7 @@ import useFileData from "utils/useFileData";
 
 import inventories from "assets/data/phoneme-inventories";
 
-interface InventoryEditorProps {
+interface InventorySelectorProps {
   symbolList: BaseSymbolList;
   diacritics: Diacritics;
   phonemeInventory: PhonemeInventory;
@@ -25,7 +25,12 @@ interface InventoryEditorProps {
   setSymbols: React.Dispatch<React.SetStateAction<ComplexSymbol[]>>;
 }
 
-function InventoryEditor({ symbolList, diacritics, symbols, setSymbols }: InventoryEditorProps) {
+function InventorySelector({
+  symbolList,
+  diacritics,
+  symbols,
+  setSymbols,
+}: InventorySelectorProps) {
   const [file, setFile] = useState<File | string>();
   const fileData = useFileData<string[]>(file, { delimiter: "\t" });
   const [fileError, setFileError] = useState<boolean>(false);
@@ -100,4 +105,4 @@ function InventoryEditor({ symbolList, diacritics, symbols, setSymbols }: Invent
   );
 }
 
-export default InventoryEditor;
+export default InventorySelector;
