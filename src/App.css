@@ -1,14 +1,3 @@
-.App-header {
-  background-color: #282c34;
-  min-height: 20rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
 /* subset formed with IPA symbols, question mark, and right arrow */
 /* generated at https://transfonter.org */
 @font-face {
