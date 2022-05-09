@@ -20,6 +20,7 @@ declare module "@mui/material/Typography" {
 
 const theme = createTheme({
   typography: {
+    fontFamily: "Usual, sans-serif;",
     phoneme: {
       fontFamily: "'Minion 3 Subhead', serif;",
       fontSize: "28px",
