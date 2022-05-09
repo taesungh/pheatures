@@ -17,6 +17,21 @@ import ComplexSymbol from "pheatures/ComplexSymbol";
 import FeatureList from "pheatures/FeatureList";
 import { FeatureName, featureNames } from "pheatures/FeatureSpecification";
 
+const stickyColumn1 = {
+  position: "sticky",
+  left: 0,
+  backgroundColor: "common.white",
+};
+
+const stickyColumn2 = {
+  position: "sticky",
+  left: "46px",
+  padding: "0 1rem",
+  backgroundColor: "common.white",
+  borderRight: "1px solid rgba(224, 224, 224, 1)",
+  boxShadow: "12px 0px 16px rgba(0, 0, 0, 0.1)",
+};
+
 type Order = "asc" | "desc";
 
 function getComparator(property: FeatureName, order: Order) {
@@ -83,7 +98,7 @@ function Spreadsheet({ featureList }: SpreadsheetProps) {
   const tableHead = (
     <TableHead style={{ fontSize: "12px" }}>
       <TableRow>
-        <TableCell padding="checkbox">
+        <TableCell padding="checkbox" sx={{ zIndex: 3, ...stickyColumn1 }}>
           <Checkbox
             color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -93,13 +108,15 @@ function Spreadsheet({ featureList }: SpreadsheetProps) {
           />
         </TableCell>
 
-        <TableCell>Phoneme</TableCell>
+        <TableCell align="center" sx={{ zIndex: 3, ...stickyColumn2 }}>
+          Phoneme
+        </TableCell>
 
         {featureNames.map((name) => (
           <TableCell
             key={name}
             sortDirection={orderBy === name ? order : false}
-            sx={{ padding: "6px 8px" }}
+            sx={{ padding: "3px 3px 3px 12px" }}
           >
             <TableSortLabel
               active={orderBy === name}
@@ -139,7 +156,7 @@ function Spreadsheet({ featureList }: SpreadsheetProps) {
             tabIndex={-1}
             selected={isItemSelected}
           >
-            <TableCell padding="checkbox">
+            <TableCell padding="checkbox" sx={stickyColumn1}>
               <Checkbox
                 color="primary"
                 checked={isItemSelected}
@@ -153,6 +170,7 @@ function Spreadsheet({ featureList }: SpreadsheetProps) {
               scope="row"
               align="center"
               padding="none"
+              sx={stickyColumn2}
             >
               <Typography variant="phoneme" component="span">
                 {/* if transformed, display antecedent, rightarrow, transformed character */}
@@ -175,7 +193,7 @@ function Spreadsheet({ featureList }: SpreadsheetProps) {
   return (
     <Paper>
       <TableContainer sx={{ maxHeight: "60vh" }}>
-        <Table stickyHeader>
+        <Table stickyHeader sx={{ whiteSpace: "nowrap" }}>
           {tableHead}
           {tableBody}
         </Table>
