@@ -15,7 +15,7 @@ interface MessagesProps {
 
 function Messages({ messages }: MessagesProps) {
   return (
-    <Stack>
+    <Stack spacing={1}>
       {messages.map((message, i) => (
         <Alert key={message.title} className="accordion-alert" severity={message.type}>
           <Accordion

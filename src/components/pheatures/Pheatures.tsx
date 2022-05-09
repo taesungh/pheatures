@@ -38,6 +38,20 @@ function Pheatures() {
     return null;
   }
 
+  const inventorySelector = (
+    <Paper>
+      <Box padding={2}>
+        <InventorySelector
+          symbolList={symbolList}
+          diacritics={diacritics}
+          phonemeInventory={inventory}
+          symbols={symbols}
+          setSymbols={setSymbols}
+        />
+      </Box>
+    </Paper>
+  );
+
   const querySelector = (
     <Paper>
       <Box padding={2}>
@@ -69,13 +83,7 @@ function Pheatures() {
   return (
     <Grid container spacing={3} py={5}>
       <Grid item xs={12}>
-        <InventorySelector
-          symbolList={symbolList}
-          diacritics={diacritics}
-          phonemeInventory={inventory}
-          symbols={symbols}
-          setSymbols={setSymbols}
-        />
+        {inventorySelector}
       </Grid>
 
       <Grid item xs={12}>

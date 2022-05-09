@@ -36,7 +36,7 @@ function SelectFeatures({ setQuery }: SelectFeaturesProps) {
   }, [featureQueries, setQuery]);
 
   return (
-    <Stack padding={1}>
+    <Stack spacing={2}>
       {featureQueries.map(({ name, value, uid }, i) => (
         <SelectFeature
           key={uid}

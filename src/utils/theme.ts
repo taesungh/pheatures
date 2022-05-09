@@ -28,6 +28,9 @@ const theme = createTheme({
       fontSize: "48px",
       fontWeight: 600,
     },
+    h6: {
+      marginBottom: ".5rem",
+    },
     phoneme: {
       fontFamily: "'Minion 3 Subhead', serif;",
       fontWeight: 500,
@@ -36,7 +39,7 @@ const theme = createTheme({
     featureValue: {
       fontSize: "18px",
       fontWeight: 400,
-    }
+    },
   },
 });
 
