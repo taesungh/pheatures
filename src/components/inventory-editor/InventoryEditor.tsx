@@ -28,12 +28,18 @@ interface InventoryEditorProps {
 function InventoryEditor({ symbolList, diacritics, symbols, setSymbols }: InventoryEditorProps) {
   const [file, setFile] = useState<File | string>();
   const fileData = useFileData<string[]>(file, { delimiter: "\t" });
+  const [fileError, setFileError] = useState<boolean>(false);
 
   // when fileData changes, process the data into a PhonemeInventory
   // call setSymbols with the symbols of the inventory
   useEffect(() => {
-    const inventory = PhonemeInventory.fromData(fileData, symbolList, diacritics);
-    setSymbols(inventory.symbols);
+    try {
+      const inventory = PhonemeInventory.fromData(fileData, symbolList, diacritics);
+      setSymbols(inventory.symbols);
+    } catch (error) {
+      console.warn(error);
+      setFileError(true);
+    }
   }, [fileData, symbolList, diacritics, setSymbols]);
 
   const [inventoryName, setInventoryName] = useState<string>("");
@@ -48,6 +54,7 @@ function InventoryEditor({ symbolList, diacritics, symbols, setSymbols }: Invent
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files?.length) {
       const file = event.target.files[0];
+      setFileError(false);
       setFile(file);
       // set the selection to the name of the file
       setInventoryName(file.name);
@@ -65,8 +72,10 @@ function InventoryEditor({ symbolList, diacritics, symbols, setSymbols }: Invent
         id="inventory-select"
         label="Phoneme Inventory"
         // change color if uploaded rather than selected
-        inputProps={{ sx: { color: fileUploaded ? "info.dark" : "common.black" } }}
+        inputProps={{ sx: { color: fileUploaded && !fileError ? "info.dark" : "common.black" } }}
         sx={{ width: "20rem" }}
+        error={fileError}
+        helperText={fileError && "The file you uploaded could not be processed."}
       >
         {Object.entries(inventories).map(([name, path]) => (
           <MenuItem key={name} value={path}>
