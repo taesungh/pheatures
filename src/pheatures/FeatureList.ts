@@ -1,5 +1,6 @@
 import BaseSymbolList from "./BaseSymbolList";
 import ComplexSymbol from "./ComplexSymbol";
+import { contradictions } from "./Contradictions";
 import { dependencies } from "./Dependency";
 import FeatureChange from "./FeatureChange";
 import { FeatureName } from "./FeatureSpecification";
@@ -12,7 +13,6 @@ class FeatureList {
   phonemeInventory: PhonemeInventory;
   // the symbols selected by the search query
   items: ComplexSymbol[];
-  // whether or not the selection was transformed
   messages: Message[];
 
   constructor(
@@ -42,6 +42,13 @@ class FeatureList {
   ): void {
     const runTransform = !transform.isNull();
 
+    const contradictingSelections = contradictions.items.filter((contradiction) =>
+      query.matches(contradiction)
+    );
+    if (contradictingSelections.length > 0) {
+      this.messages.push(Message.contradiction("selections", contradictingSelections));
+    }
+
     // select symbols that match the feature values in the selection query
     this.items = this.phonemeInventory.select(query);
 
@@ -55,6 +62,13 @@ class FeatureList {
     // });
 
     if (runTransform) {
+      const contradictingChanges = contradictions.items.filter((contradiction) =>
+        transform.matches(contradiction)
+      );
+      if (contradictingChanges.length > 0) {
+        this.messages.push(Message.contradiction("changes", contradictingChanges));
+      }
+
       // get feature changes which would be vacuous
       const redundantChanges = transform.findVacuous(this.items);
       if (!redundantChanges.isNull()) {

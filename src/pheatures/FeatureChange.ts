@@ -32,10 +32,12 @@ class FeatureChange {
     return new FeatureChange(features);
   }
 
-  isNull() {
+  isNull(): boolean {
     return Object.entries(this.features).length === 0;
   }
 
+  // checks if this.features matches all values of the given change
+  // the given change may specify less features: ignore any additional values in this.features
   matches(change: FeatureChange): boolean {
     return Object.entries(change.features).every(
       ([name, value]) => this.features[name as FeatureName] === value

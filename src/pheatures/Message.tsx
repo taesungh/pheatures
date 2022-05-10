@@ -63,6 +63,24 @@ class Message {
       )
     );
   }
+
+  static contradiction(place: "selections" | "changes", contradictions: FeatureChange[]): Message {
+    return new Message(
+      MessageType.error,
+      `The feature ${place} contain ${
+        contradictions.length > 1 ? "contradictions" : "a contradiction"
+      }`,
+      (
+        <ul>
+          {contradictions.map((contradiction) => (
+            <li key={String(contradiction)}>
+              The features {String(contradiction)} cannot occur together.
+            </li>
+          ))}
+        </ul>
+      )
+    );
+  }
 }
 
 export default Message;
