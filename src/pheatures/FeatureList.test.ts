@@ -179,3 +179,46 @@ test("converts to affricates", async () => {
     SYMBOL_UNKNOWN,
   ]);
 });
+
+test("finds affricate with double diacritics", async () => {
+  const featureList = new FeatureList(
+    inventoryHypothetical,
+    symbolList,
+    "+dorsal, -continuant, -sonorant",
+    "+delayed release, +back"
+  );
+  expect(selectionCharacters(featureList)).toEqual(["k" + DIA.FRONTED, "k", "q"]);
+  expect(resultCharacters(featureList)).toEqual([
+    "k" + DIA.BACKED + DIA.BREVE + "x" + DIA.BACKED,
+    "k" + DIA.BACKED + DIA.BREVE + "x" + DIA.BACKED,
+    "q" + DIA.BREVE + CONS.VlUvFr,
+  ]);
+});
+
+test("reasonable multiple diacritics", async () => {
+  const featureList = new FeatureList(inventoryKorean, symbolList, "+dorsal, -sonorant", "+front");
+  expect(selectionCharacters(featureList)).toEqual(["k", "k" + DIA.ASPIRATED, "k" + DIA.EJECTIVE]);
+  expect(resultCharacters(featureList)).toEqual([
+    "k" + DIA.FRONTED,
+    "k" + DIA.FRONTED + DIA.ASPIRATED,
+    // differs from original behavior in favor of simpler diacritic
+    "k" + DIA.FRONTED + DIA.EJECTIVE,
+  ]);
+});
+
+test("changes between diacritics", async () => {
+  const featureList = new FeatureList(
+    inventoryKorean,
+    symbolList,
+    "+dorsal, -sonorant",
+    "+front, +voice"
+  );
+  expect(selectionCharacters(featureList)).toEqual(["k", "k" + DIA.ASPIRATED, "k" + DIA.EJECTIVE]);
+  // matches original behavior, although questionable
+  expect(resultCharacters(featureList)).toEqual([
+    // could be simply change "k" to VdVlPl and add DIA.FRONTED
+    CONS.VdUvPl + DIA.PALATALIZED,
+    CONS.VdUvPl + DIA.BREATHY_VOICED + DIA.PALATALIZED,
+    CONS.VdUvPl + DIA.CREAKY_VOICED + DIA.PALATALIZED,
+  ]);
+});

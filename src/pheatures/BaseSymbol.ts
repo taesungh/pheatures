@@ -21,7 +21,9 @@ class BaseSymbol {
     this.features = features;
   }
 
-  matches(query: FeatureChange) {
+  // check if symbol matches features specified in query
+  // cannot match variables
+  matches(query: FeatureChange | BaseSymbol) {
     return Object.entries(query.features).every(
       ([name, value]) => this.features[name as FeatureName] === value
     );
