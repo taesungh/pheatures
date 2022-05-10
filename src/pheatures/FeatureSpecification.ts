@@ -47,6 +47,12 @@ export const FeatureDisplayValues = {
   [FeatureValue.nul]: " ",
 };
 
+export const FeatureDisplayExplicit = {
+  [FeatureValue.plus]: "+",
+  [FeatureValue.minus]: "\u2212",
+  [FeatureValue.nul]: "0",
+};
+
 // variables
 // nonVariables
 // displayVariables

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 
+import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
+import Stack from "@mui/material/Stack";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -10,12 +12,16 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
+import Toolbar from "@mui/material/Toolbar";
+import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { visuallyHidden } from "@mui/utils";
 
 import ComplexSymbol from "pheatures/ComplexSymbol";
 import FeatureList from "pheatures/FeatureList";
 import { FeatureDisplayValues, FeatureName, featureNames } from "pheatures/FeatureSpecification";
+
+import { FeatureComparison } from "components";
 
 const stickyColumn1 = {
   position: "sticky",
@@ -58,21 +64,23 @@ function Spreadsheet({ featureList }: SpreadsheetProps) {
   const symbols = featureList.items;
   const rowCount = symbols.length;
 
-  const [selected, setSelected] = useState<string[]>([]);
+  const [selected, setSelected] = useState<ComplexSymbol[]>([]);
   const [orderBy, setOrderBy] = useState<FeatureName>("syllabic");
   const [order, setOrder] = useState<Order>("desc");
+  const [compareDialogOpen, setCompareDialogOpen] = useState<boolean>(false);
+  const [compareMode, setCompareMode] = useState<"common" | "diff">("common");
 
   useEffect(() => {
     // when feature list items are modified, remove selection items that are no longer included
-    const baseCharacters = symbols.map((symbol) => symbol.antecedent.displayCharacter);
-    setSelected((selected) => selected.filter((character) => baseCharacters.includes(character)));
+    const originalSymbols = symbols.map((symbol) => symbol.antecedent);
+    setSelected((selected) => selected.filter((symbol) => originalSymbols.includes(symbol)));
   }, [symbols]);
 
   const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelected(event.target.checked ? symbols.map((s) => s.displayCharacter) : []);
+    setSelected(event.target.checked ? symbols.map((symbol) => symbol.antecedent) : []);
   };
 
-  const handleSelect = (value: string) => {
+  const handleSelect = (value: ComplexSymbol) => {
     const selectedIndex = selected.indexOf(value);
     // if not selected, insert at end; otherwise, remove the value
     setSelected((selected) =>
@@ -89,11 +97,58 @@ function Spreadsheet({ featureList }: SpreadsheetProps) {
     setOrderBy(property);
   };
 
-  const isSelected = (name: string) => selected.indexOf(name) !== -1;
+  const isSelected = (symbol: ComplexSymbol) => selected.indexOf(symbol) !== -1;
   const numSelected = selected.length;
 
   // list of symbols sorted by ordering criterion
   const symbolList = symbols.slice().sort(getComparator(orderBy, order));
+
+  const titleToolbar = (
+    <Toolbar>
+      <Typography variant="h6" component="div">
+        Feature List
+      </Typography>
+    </Toolbar>
+  );
+
+  const closeCompareDialog = () => {
+    setCompareDialogOpen(false);
+  };
+
+  const openDiff = () => {
+    setCompareMode("diff");
+    setCompareDialogOpen(true);
+  };
+
+  const openCommon = () => {
+    setCompareMode("common");
+    setCompareDialogOpen(true);
+  };
+
+  const operationToolbar = (
+    <Toolbar
+      sx={{
+        bgcolor: (theme) =>
+          alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+      }}
+    >
+      <Typography sx={{ flex: "1 1 100%" }} color="inherit" component="div">
+        {numSelected} selected
+      </Typography>
+      <Stack direction="row" spacing={1}>
+        <Tooltip title="Find difference in features">
+          <Button variant="contained" onClick={openDiff}>
+            Diff
+          </Button>
+        </Tooltip>
+        <Tooltip title="Find common features">
+          <Button variant="contained" onClick={openCommon}>
+            Common
+          </Button>
+        </Tooltip>
+      </Stack>
+    </Toolbar>
+  );
 
   const tableHead = (
     <TableHead style={{ fontSize: "12px" }}>
@@ -143,7 +198,7 @@ function Spreadsheet({ featureList }: SpreadsheetProps) {
         // transformation is not one-to-one, so use antecedent character as unique key
         const antecedentCharacter = symbol.antecedent.displayCharacter;
 
-        const isItemSelected = isSelected(antecedentCharacter);
+        const isItemSelected = isSelected(symbol.antecedent);
         const undeterminedLabel = symbol.displayCharacter === "?";
         const labelId = `spreadsheet-checkbox-${index}`;
 
@@ -151,7 +206,7 @@ function Spreadsheet({ featureList }: SpreadsheetProps) {
           <TableRow
             key={antecedentCharacter}
             hover
-            onClick={() => handleSelect(antecedentCharacter)}
+            onClick={() => handleSelect(symbol.antecedent)}
             role="checkbox"
             aria-checked={isItemSelected}
             tabIndex={-1}
@@ -207,12 +262,19 @@ function Spreadsheet({ featureList }: SpreadsheetProps) {
 
   return (
     <Box>
-      <TableContainer sx={{ maxHeight: "60vh" }}>
+      {numSelected > 0 ? operationToolbar : titleToolbar}
+      <TableContainer sx={{ maxHeight: "60vh", borderTop: "1px solid rgba(224, 224, 224, 1)" }}>
         <Table stickyHeader sx={{ whiteSpace: "nowrap" }}>
           {tableHead}
           {tableBody}
         </Table>
       </TableContainer>
+      <FeatureComparison
+        open={compareDialogOpen}
+        symbols={selected}
+        mode={compareMode}
+        handleClose={closeCompareDialog}
+      />
     </Box>
   );
 }
