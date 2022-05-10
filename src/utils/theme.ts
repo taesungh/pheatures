@@ -35,6 +35,8 @@ const theme = createTheme({
       fontFamily: "'Minion 3 Subhead', serif;",
       fontWeight: 500,
       fontSize: "32px",
+      // fix rerendering issue in Safari
+      display: "inline-block",
     },
     featureValue: {
       fontSize: "18px",
