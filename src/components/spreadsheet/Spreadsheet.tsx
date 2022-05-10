@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -62,6 +62,7 @@ interface SpreadsheetProps {
 // https://mui.com/material-ui/react-table/#sorting-amp-selecting
 function Spreadsheet({ featureList }: SpreadsheetProps) {
   const symbols = featureList.items;
+  const antecedents = useMemo(() => symbols.map((symbol) => symbol.antecedent), [symbols]);
   const rowCount = symbols.length;
 
   const [selected, setSelected] = useState<ComplexSymbol[]>([]);
@@ -72,12 +73,11 @@ function Spreadsheet({ featureList }: SpreadsheetProps) {
 
   useEffect(() => {
     // when feature list items are modified, remove selection items that are no longer included
-    const originalSymbols = symbols.map((symbol) => symbol.antecedent);
-    setSelected((selected) => selected.filter((symbol) => originalSymbols.includes(symbol)));
-  }, [symbols]);
+    setSelected((selected) => selected.filter((symbol) => antecedents.includes(symbol)));
+  }, [antecedents]);
 
   const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelected(event.target.checked ? symbols.map((symbol) => symbol.antecedent) : []);
+    setSelected(event.target.checked ? antecedents : []);
   };
 
   const handleSelect = (value: ComplexSymbol) => {
@@ -124,6 +124,9 @@ function Spreadsheet({ featureList }: SpreadsheetProps) {
     setCompareMode("common");
     setCompareDialogOpen(true);
   };
+
+  // comparison must compare transformed symbols
+  const comparisonSymbols = selected.map((symbol) => symbols[antecedents.indexOf(symbol)]);
 
   const operationToolbar = (
     <Toolbar
@@ -271,7 +274,7 @@ function Spreadsheet({ featureList }: SpreadsheetProps) {
       </TableContainer>
       <FeatureComparison
         open={compareDialogOpen}
-        symbols={selected}
+        symbols={comparisonSymbols}
         mode={compareMode}
         handleClose={closeCompareDialog}
       />

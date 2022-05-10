@@ -39,14 +39,16 @@ function FeatureComparison({ open, symbols, mode, handleClose }: FeatureComparis
       <TableContainer sx={{ borderTop: "1px solid rgba(224, 224, 224, 1)" }}>
         <Table>
           <TableHead>
-            <TableCell align="center" sx={stickyColumn1}>
-              Phoneme
-            </TableCell>
-            {result.map((featureName) => (
-              <TableCell key={featureName} align="center">
-                {featureName}
+            <TableRow>
+              <TableCell align="center" sx={stickyColumn1}>
+                Phoneme
               </TableCell>
-            ))}
+              {result.map((featureName) => (
+                <TableCell key={featureName} align="center">
+                  {featureName}
+                </TableCell>
+              ))}
+            </TableRow>
           </TableHead>
           <TableBody>
             {symbols.map((symbol) => (
