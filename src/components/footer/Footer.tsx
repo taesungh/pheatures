@@ -9,9 +9,9 @@ function Footer() {
       <Container maxWidth="xl">
         <Box py={10}>
           <Typography mb={1}>
-            Pheatures Spreadsheet Online developed by Taesung Hwang for LSCI 10 at UCI.
+            Pheatures Spreadsheet Online developed by Taesung Hwang for LSCI 10, Spring 2022 at UCI.
           </Typography>
-          <Typography>
+          <Typography mb={1}>
             This online application is based on{" "}
             <Link href="https://linguistics.ucla.edu/people/hayes/120a/Pheatures/">
               Pheatures Spreadsheet
@@ -22,6 +22,11 @@ function Footer() {
             <Link href="https://linguistics.ucla.edu/people/zuraw/">Professor Kie Zuraw</Link> at
             the UCLA Department of Linguistics. That project improved upon Professor Zuraw&apos;s
             work on FeaturePad from which many of the algorithms are adopted.
+          </Typography>
+          <Typography>
+            Special thanks to LSCI 10 instructors{" "}
+            <Link href="https://socsci.uci.edu/~cjmayer/">Connor Mayer</Link> and{" "}
+            <Link href="https://jeremyyeaton.github.io">Jeremy Yeaton</Link>.
           </Typography>
         </Box>
       </Container>
