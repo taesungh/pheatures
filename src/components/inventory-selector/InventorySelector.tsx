@@ -83,6 +83,14 @@ function InventorySelector({ symbolList, symbols, setSymbols }: InventorySelecto
         {fileUploaded && <MenuItem value={file.name}>{file.name} (uploaded)</MenuItem>}
       </TextField>
 
+      <Tooltip title="Sorry, this has not been implemented yet">
+        <span>
+          <Button startIcon={<EditRoundedIcon />} disabled>
+            Edit
+          </Button>
+        </span>
+      </Tooltip>
+
       <label htmlFor="inventory-file-upload">
         <Input
           id="inventory-file-upload"
