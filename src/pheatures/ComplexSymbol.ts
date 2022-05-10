@@ -3,7 +3,7 @@ import BaseSymbolList from "./BaseSymbolList";
 import Diacritic from "./Diacritic";
 import { diacriticList } from "./Diacritics";
 import FeatureChange from "./FeatureChange";
-import FeatureSpecification, { FeatureName, featureNames } from "./FeatureSpecification";
+import FeatureSpecification, { featureNames } from "./FeatureSpecification";
 
 // A ComplexSymbol is a symbol which may have diacritics attached
 // These are stored by the PhonemeInventory

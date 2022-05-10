@@ -11,7 +11,7 @@ import Spanish from "./Spanish.inv";
 import TobaBatak from "./TobaBatak.inv";
 import Turkish from "./Turkish.inv";
 
-export default {
+const inventories = {
   EnglishNoDiphthongs,
   German,
   HypotheticalLanguage,
@@ -25,3 +25,5 @@ export default {
   TobaBatak,
   Turkish,
 };
+
+export default inventories;
