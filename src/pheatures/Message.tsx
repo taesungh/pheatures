@@ -22,7 +22,7 @@ class Message {
     return new Message(
       MessageType.warning,
       "Selection is not minimal",
-      <p>The selected set of sounds can be described by removing a selected feature</p>
+      <p>The selected set of sounds can be described by removing a selected feature.</p>
     );
   }
 
@@ -54,9 +54,9 @@ class Message {
       (
         <ul>
           {dependencies.map((dependency) => (
-            <li key={dependency.from.toString()}>
-              Because {dependency.from.toString()} was selected, the change{" "}
-              {dependency.to.toString()} was also applied
+            <li key={String(dependency.from) + String(dependency.to)}>
+              Because the change {String(dependency.from)} was selected, the change{" "}
+              {String(dependency.to)} was also applied.
             </li>
           ))}
         </ul>
