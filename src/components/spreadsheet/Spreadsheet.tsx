@@ -126,7 +126,8 @@ function Spreadsheet({ featureList }: SpreadsheetProps) {
   };
 
   // comparison must compare transformed symbols
-  const comparisonSymbols = selected.map((symbol) => symbols[antecedents.indexOf(symbol)]);
+  // select, in order, the transformed symbols which are part of the selection
+  const comparisonSymbols = symbols.filter((symbol) => selected.includes(symbol.antecedent));
 
   const operationToolbar = (
     <Toolbar

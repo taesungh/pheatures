@@ -31,7 +31,7 @@ interface FeatureComparisonProps {
 
 function FeatureComparison({ open, symbols, mode, handleClose }: FeatureComparisonProps) {
   const compareAction = { common: commonFeatures, diff: differentFeatures }[mode];
-  const result = mode ? compareAction(symbols) : [];
+  const result = compareAction(symbols);
 
   return (
     <Dialog open={open} maxWidth={"xl"} onClose={handleClose}>
