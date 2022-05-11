@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.css": "/pheatures/static/css/main.133a9a9d.css",
-    "main.js": "/pheatures/static/js/main.5d3b0952.js",
+    "main.css": "/pheatures/static/css/main.26300cee.css",
+    "main.js": "/pheatures/static/js/main.1ff94891.js",
     "static/js/27.ffda6246.chunk.js": "/pheatures/static/js/27.ffda6246.chunk.js",
-    "static/media/subset-Minion3Subhead-Medium.woff2": "/pheatures/static/media/subset-Minion3Subhead-Medium.8c6af847aa6a1cbb1461.woff2",
+    "static/media/subset-Minion3Subhead-Medium.woff2": "/pheatures/static/media/subset-Minion3Subhead-Medium.9b4239e3f8f6aadfa670.woff2",
     "static/media/symbol-list.tsv": "/pheatures/static/media/symbol-list.b90444c3f1eb4d1cd985.tsv",
     "index.html": "/pheatures/index.html",
     "static/media/German.inv": "/pheatures/static/media/German.b1a04359532dbd73aece.inv",
@@ -20,7 +20,7 @@
     "static/media/Spanish.inv": "/pheatures/static/media/Spanish.38c964cbfd0d329bcdef.inv"
   },
   "entrypoints": [
-    "static/css/main.133a9a9d.css",
-    "static/js/main.5d3b0952.js"
+    "static/css/main.26300cee.css",
+    "static/js/main.1ff94891.js"
   ]
 }
