@@ -130,7 +130,7 @@ function SelectFeature({
       {value !== "" && (
         <Autocomplete
           value={name}
-          id={`feature-name-select-${index}`}
+          id={`feature-label-select-${index}`}
           onChange={handleSelectName}
           options={featureNames}
           getOptionDisabled={(option) => featureQueries.map(({ name }) => name).includes(option)}
