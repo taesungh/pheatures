@@ -1,7 +1,7 @@
-import ComplexSymbol from "./ComplexSymbol";
+import BaseSymbol from "./BaseSymbol";
 import { FeatureName, featureNames } from "./FeatureSpecification";
 
-function commonFeatures(symbols: ComplexSymbol[]): FeatureName[] {
+function commonFeatures(symbols: BaseSymbol[]): FeatureName[] {
   if (symbols.length === 0) {
     return [];
   }
@@ -12,7 +12,7 @@ function commonFeatures(symbols: ComplexSymbol[]): FeatureName[] {
   });
 }
 
-function differentFeatures(symbols: ComplexSymbol[]): FeatureName[] {
+function differentFeatures(symbols: BaseSymbol[]): FeatureName[] {
   if (symbols.length === 0) {
     return [];
   }

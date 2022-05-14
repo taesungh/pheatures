@@ -1,45 +1,11 @@
+import { CONS, DIA, VOW } from "utils/phonemes";
+
 import BaseSymbolList from "./BaseSymbolList";
 import FeatureList from "./FeatureList";
 import PhonemeInventory from "./PhonemeInventory";
 
 import inventories from "assets/data/phoneme-inventories/";
 import rawSymbols from "assets/data/symbol-list.tsv";
-
-const enum DIA {
-  FRONTED = "\u031f",
-  BACKED = "\u0320",
-  PALATALIZED = "ʲ",
-  LONG = "\u02d0",
-  ASPIRATED = "ʰ",
-  EJECTIVE = "\u02bc", // ʼ
-  BREATHY_VOICED = "\u0324",
-  CREAKY_VOICED = "\u0330",
-  BREVE = "\u0361", // for affricates
-}
-
-const enum CONS {
-  VlBlFr = "ɸ",
-  VdVePl = "\u0261", // ɡ
-  VdVeNa = "ŋ",
-  VdVeFr = "\u0263", // ɣ
-  VdVeAp = "ɰ",
-  VdUvPl = "ɢ",
-  VlUvFr = "χ",
-  VdUvFr = "ʁ",
-  VlPhFr = "ħ",
-  VdPhFr = "ʕ",
-  VlGlPl = "\u0294", // ʔ
-}
-
-const enum VOW {
-  OFU = "a",
-  CMFR = "ø",
-  ROFU = "æ",
-  CBU = "\u026f", // ɯ
-  CMBU = "ɤ",
-  OBU = "\u0251", // ɑ
-  OBR = "ɒ",
-}
 
 const SYMBOL_UNKNOWN = "?";
 
