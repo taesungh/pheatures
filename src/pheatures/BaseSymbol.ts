@@ -23,13 +23,13 @@ class BaseSymbol {
 
   // check if symbol matches features specified in query
   // cannot match variables
-  matches(query: FeatureChange | BaseSymbol) {
+  matches(query: FeatureChange | BaseSymbol): boolean {
     return Object.entries(query.features).every(
       ([name, value]) => this.features[name as FeatureName] === value
     );
   }
 
-  static fromData(rawSymbol: RawSymbol) {
+  static fromData(rawSymbol: RawSymbol): BaseSymbol {
     return new BaseSymbol(
       rawSymbol.Unicode,
       rawSymbol.Sound,

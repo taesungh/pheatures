@@ -44,7 +44,7 @@ class ComplexSymbol extends BaseSymbol {
   }
 
   // applies the target feature changes of each diacritic to the features of this symbol
-  compileDiacritics() {
+  compileDiacritics(): void {
     this.diacritics.forEach((diacritic) => {
       // update features with those of diacritic
       this.features = { ...this.features, ...diacritic.to.features };

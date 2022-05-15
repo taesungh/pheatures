@@ -10,9 +10,14 @@ class BaseSymbolList {
     this.symbols = Object.fromEntries(
       rawSymbols.map((rawSymbol) => {
         const symbol = BaseSymbol.fromData(rawSymbol);
+        // labels map to BaseSymbols
         return [symbol.character, symbol];
       })
     );
+  }
+
+  isEmpty(): boolean {
+    return Object.entries(this.symbols).length === 0;
   }
 }
 

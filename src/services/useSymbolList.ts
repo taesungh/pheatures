@@ -6,9 +6,10 @@ import useFileData from "utils/useFileData";
 
 import rawSymbolList from "assets/data/symbol-list.tsv";
 
-function useSymbolList() {
-  const symbolList = useFileData<RawSymbol>(rawSymbolList, { header: true });
-  return useMemo(() => new BaseSymbolList(symbolList), [symbolList]);
+function useSymbolList(): BaseSymbolList {
+  // parse the raw symbol data into keyed objects
+  const rawSymbols = useFileData<RawSymbol>(rawSymbolList, { header: true });
+  return useMemo(() => new BaseSymbolList(rawSymbols), [rawSymbols]);
 }
 
 export default useSymbolList;

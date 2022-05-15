@@ -24,7 +24,7 @@ function Pheatures() {
 
   const featureList = new FeatureList(inventory, symbolList, searchQuery, transformQuery);
 
-  if (Object.entries(symbolList.symbols).length === 0) {
+  if (symbolList.isEmpty()) {
     return null;
   }
 
