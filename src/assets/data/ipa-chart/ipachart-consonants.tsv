@@ -1,0 +1,17 @@
+[CONSONANTS]	[bilabial]	[labiodental]	[dental]	[alveolar]	[postalveolar]	[retroflex]	[alveolo-palatal]	[palatal]	[fronted velar]	[velar]	[backed velar]	[uvular]	[pharyngeal]	[glottal]
+[plosive]	p		t;dental	t	t;postalveolar	ʈ		c	k;fronted velar	k	k;backed velar	q		ʔ
+ 	b		d;dental	d	d;postalveolar	ɖ		ɟ	ɡ;fronted velar	ɡ	ɡ;backed velar	ɢ		
+[affr.]	p͡ɸ	p͡f	t̪͡θ	t͡s	t͡ʃ	ʈ͡ʂ	t͡ɕ	c͡ç	k̟͡x̟	k͡x	k̠͡x̠	q͡χ		
+ 	b͡β	b͡v	d̪͡ð	d͡z	d͡ʒ	ɖ͡ʐ	d͡ʑ	ɟ͡ʝ	ɡ̟͡ɣ̟	ɡ͡ɣ	ɡ̠͡ɣ̠	ɢ͡ʁ		
+[lat. affr.]			t̪͡ɬ̪	t͡ɬ	t͡ɬ̲									
+ 			d̪͡ɮ̪	d͡ɮ	d̠͡ɮ̠									
+[fric.]	ɸ	f	θ	s	ʃ	ʂ	ɕ	ç	x;fronted velar	x	x;backed velar	χ	ħ	h
+ 	β	v	ð	z	ʒ	ʐ	ʑ	ʝ	ɣ;fronted velar	ɣ	ɣ;backed velar	ʁ	ʕ	ɦ
+[lat. fric.]			ɬ;dental	ɬ	ɬ;postalveolar									
+ 			ɮ;dental	ɮ	ɮ;postalveolar									
+[nasal]	m	ɱ	n;dental	n	n;postalveolar	ɳ		ɲ	ŋ;fronted velar	ŋ	ŋ;backed velar	ɴ		
+[trill]	ʙ		r;dental	r	r;postalveolar							ʀ		
+[flap/tap]			ɾ;dental	ɾ	ɾ;postalveolar	ɽ								
+[lat. flap]			ɺ;dental	ɺ	ɺ;postalveolar									
+[approx.]		ʋ	ɹ;dental	ɹ	ɹ;postalveolar	ɻ		j		ɰ	ɰ̠			
+[lat. appr.]			l;dental	l	l;postalveolar	ɭ		ʎ	ʟ;fronted velar	ʟ	ʟ;backed velar			

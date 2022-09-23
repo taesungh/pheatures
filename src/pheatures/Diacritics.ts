@@ -39,6 +39,14 @@ class Diacritics {
     }
     throw new Error("could not find a matching diacritic from the given label");
   }
+
+  getFromName(name: string): Diacritic {
+    const options = this.items.filter((diacritic) => diacritic.description === name);
+    if (options.length === 1) {
+      return options[0];
+    }
+    throw new Error(`could not find a matching diacritic from the given name ${name}`);
+  }
 }
 
 export const diacriticList = new Diacritics(diacriticsData);
