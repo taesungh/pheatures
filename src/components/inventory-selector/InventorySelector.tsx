@@ -9,6 +9,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Tooltip from "@mui/material/Tooltip";
 
+import { InventoryEditor } from "components";
 import BaseSymbolList from "pheatures/BaseSymbolList";
 import ComplexSymbol from "pheatures/ComplexSymbol";
 import PhonemeInventory from "pheatures/PhonemeInventory";
@@ -27,6 +28,8 @@ function InventorySelector({ symbolList, symbols, setSymbols }: InventorySelecto
   const [file, setFile] = useState<File | string>();
   const fileData = useFileData<string[]>(file, { delimiter: "\t" });
   const [fileError, setFileError] = useState<boolean>(false);
+
+  const [editorDialogOpen, setEditorDialogOpen] = useState<boolean>(false);
 
   // when fileData changes, process the data into a PhonemeInventory
   // call setSymbols with the symbols of the inventory
@@ -59,6 +62,18 @@ function InventorySelector({ symbolList, symbols, setSymbols }: InventorySelecto
     }
   };
 
+  const openEditor = () => {
+    setEditorDialogOpen(true);
+  };
+
+  const closeEditor = () => {
+    setEditorDialogOpen(false);
+  };
+
+  const applyInventory = () => {
+    // use the inventory
+  };
+
   const fileUploaded = typeof file === "object";
 
   return (
@@ -84,12 +99,19 @@ function InventorySelector({ symbolList, symbols, setSymbols }: InventorySelecto
       </TextField>
 
       <Tooltip title="Sorry, this has not been implemented yet">
-        <span>
-          <Button startIcon={<EditRoundedIcon />} disabled>
-            Edit
-          </Button>
-        </span>
+        <Button startIcon={<EditRoundedIcon />} onClick={openEditor}>
+          Edit
+        </Button>
       </Tooltip>
+      {editorDialogOpen && (
+        <InventoryEditor
+          open={editorDialogOpen}
+          symbolList={symbolList}
+          symbols={symbols}
+          applyInventory={applyInventory}
+          handleClose={closeEditor}
+        />
+      )}
 
       <label htmlFor="inventory-file-upload">
         <Input
