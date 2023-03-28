@@ -30,14 +30,16 @@ function InventoryTable({ ipaSkeleton, selected, handleSelect }: InventoryTableP
   );
 
   return (
-    <Table>
+    <Table stickyHeader>
       <TableHead>
         <TableRow>
-          <TableCell>inventory</TableCell>
+          {ipaSkeleton.skeleton[0].map((head) => {
+            return <TableCell key={String(head)}>{String(head)}</TableCell>;
+          })}
         </TableRow>
       </TableHead>
       <TableBody>
-        {ipaSkeleton.skeleton.map((row, i) => (
+        {ipaSkeleton.skeleton.slice(1).map((row, i) => (
           <TableRow key={i}>
             {row.map((cell, j) => {
               if (typeof cell === "string") {
