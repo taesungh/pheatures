@@ -5,19 +5,17 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import Tab from "@mui/material/Tab";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
 import Tabs from "@mui/material/Tabs";
 
 import consonantsChart from "assets/data/ipa-chart/ipachart-consonants.tsv";
+import vowelsChart from "assets/data/ipa-chart/ipachart-vowels.tsv";
 
 import BaseSymbolList from "pheatures/BaseSymbolList";
 import ComplexSymbol from "pheatures/ComplexSymbol";
 import useIPASkeleton from "services/useIPASkeleton";
+
+import InventoryTable from "./InventoryTable";
 
 interface InventoryEditorProps {
   open: boolean;
@@ -42,8 +40,9 @@ function InventoryEditor({
   const [selected, setSelected] = useState<ComplexSymbol[]>(symbols);
 
   const consonantTable = useIPASkeleton(consonantsChart, symbolList);
+  const vowelTable = useIPASkeleton(vowelsChart, symbolList);
 
-  if (consonantTable.skeleton.length === 0) {
+  if (consonantTable.skeleton.length === 0 || vowelTable.skeleton.length === 0) {
     return null;
   }
 
@@ -57,51 +56,12 @@ function InventoryEditor({
     });
   };
 
-  const SymbolCell = ({ symbol }: { symbol: ComplexSymbol }) => (
-    <TableCell>
-      <label>
-        <input
-          type="checkbox"
-          checked={selected
-            .map((symbol) => symbol.displayCharacter)
-            .includes(symbol.displayCharacter)}
-          onChange={() => handleSelect(symbol)}
-        />
-        <span>{symbol.displayCharacter}</span>
-      </label>
-    </TableCell>
+  const consonantsInventoryTable = (
+    <InventoryTable ipaSkeleton={consonantTable} selected={selected} handleSelect={handleSelect} />
   );
 
-  const consonantsTable = (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>consonant</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {consonantTable.skeleton.map((row, i) => (
-          <TableRow key={i}>
-            {row.map((cell, j) => {
-              if (typeof cell === "string") {
-                return <TableCell key={cell || `${i}-${j}`}>{cell}</TableCell>;
-              }
-              return <SymbolCell key={cell.displayCharacter} symbol={cell} />;
-            })}
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  );
-
-  const vowelsTable = (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>vowel</TableCell>
-        </TableRow>
-      </TableHead>
-    </Table>
+  const vowelsInventoryTable = (
+    <InventoryTable ipaSkeleton={vowelTable} selected={selected} handleSelect={handleSelect} />
   );
 
   return (
@@ -111,9 +71,11 @@ function InventoryEditor({
         <Tab label="consonants" value="consonants" />
         <Tab label="vowels" value="vowels" />
       </Tabs>
-      {selectedTab === "consonants" && <TableContainer>{consonantsTable}</TableContainer>}
-      {/* {otherTable} */}
-      {selectedTab === "vowels" && <TableContainer>{vowelsTable}</TableContainer>}
+      <TableContainer>
+        {selectedTab === "consonants" && consonantsInventoryTable}
+        {/* {otherTable} */}
+        {selectedTab === "vowels" && vowelsInventoryTable}
+      </TableContainer>
       <DialogActions>
         <Button onClick={applyInventory}>Apply</Button>
       </DialogActions>
