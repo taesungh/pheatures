@@ -45,14 +45,14 @@ function InventorySelector({ symbolList, symbols, setSymbols }: InventorySelecto
 
   const [inventoryName, setInventoryName] = useState<string>("");
 
-  const handleSelectInventory = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectInventory = (event: React.ChangeEvent<HTMLInputElement>): void => {
     // update the selection value
     setInventoryName(event.target.value);
     // set the file path which will update fileData which will trigger the previous effect
     setFile(event.target.value);
   };
 
-  const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUpload = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files?.length) {
       const file = event.target.files[0];
       setFileError(false);
@@ -70,11 +70,16 @@ function InventorySelector({ symbolList, symbols, setSymbols }: InventorySelecto
     setEditorDialogOpen(false);
   };
 
-  const applyInventory = () => {
-    // use the inventory
+  // use the symbols provided when applying the inventory
+  const handleEdit = (symbols: ComplexSymbol[]): void => {
+    setSymbols(symbols);
+    // remove file to allow reselecting the original inventory
+    setFile(undefined);
+    setInventoryName("custom");
   };
 
   const fileUploaded = typeof file === "object";
+  const customInventory = inventoryName === "custom";
 
   return (
     <Stack direction="row" alignItems="center" justifyContent="center" spacing={3}>
@@ -84,8 +89,12 @@ function InventorySelector({ symbolList, symbols, setSymbols }: InventorySelecto
         select
         id="inventory-select"
         label="Phoneme Inventory"
-        // change color if uploaded rather than selected
-        inputProps={{ sx: { color: fileUploaded && !fileError ? "info.dark" : "common.black" } }}
+        // change color if uploaded or edited rather than selected
+        inputProps={{
+          sx: {
+            color: (fileUploaded && !fileError) || customInventory ? "info.dark" : "common.black",
+          },
+        }}
         sx={{ width: "20rem" }}
         error={fileError}
         helperText={fileError && "The file you uploaded could not be processed."}
@@ -96,9 +105,10 @@ function InventorySelector({ symbolList, symbols, setSymbols }: InventorySelecto
           </MenuItem>
         ))}
         {fileUploaded && <MenuItem value={file.name}>{file.name} (uploaded)</MenuItem>}
+        {customInventory && <MenuItem value="custom">custom</MenuItem>}
       </TextField>
 
-      <Tooltip title="Sorry, this has not been implemented yet">
+      <Tooltip title="Edit the phoneme inventory">
         <Button startIcon={<EditRoundedIcon />} onClick={openEditor}>
           Edit
         </Button>
@@ -108,7 +118,7 @@ function InventorySelector({ symbolList, symbols, setSymbols }: InventorySelecto
           open={editorDialogOpen}
           symbolList={symbolList}
           symbols={symbols}
-          applyInventory={applyInventory}
+          applyInventory={handleEdit}
           handleClose={closeEditor}
         />
       )}

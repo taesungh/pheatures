@@ -63,6 +63,13 @@ class IPASkeleton {
     }
     return references;
   }
+
+  // Flatten the skeleton cells, keeping only the selected
+  // Equivalent to reordering selected symbols based on table ordering
+  collapse(selected: ComplexSymbol[]): ComplexSymbol[] {
+    const selection = new Set(selected);
+    return this.symbols.filter((cell) => typeof cell !== "string" && selection.has(cell));
+  }
 }
 
 export default IPASkeleton;

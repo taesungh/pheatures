@@ -21,7 +21,7 @@ interface InventoryEditorProps {
   open: boolean;
   symbolList: BaseSymbolList;
   symbols: ComplexSymbol[];
-  applyInventory: () => void;
+  applyInventory: (symbols: ComplexSymbol[]) => void;
   handleClose: () => void;
 }
 
@@ -44,11 +44,16 @@ function InventoryEditor({
     return null;
   }
 
+  const applyAndClose = (): void => {
+    applyInventory([...consonants.collapse(), ...vowels.collapse()]);
+    handleClose();
+  };
+
   const consonantsInventoryTable = <InventoryTable {...consonants} />;
   const vowelsInventoryTable = <InventoryTable {...vowels} />;
 
   return (
-    <Dialog open={open} onClose={handleClose} maxWidth="lg">
+    <Dialog open={open} maxWidth="lg">
       <DialogTitle>Edit Phoneme Inventory</DialogTitle>
       <Tabs value={selectedTab} onChange={(e, v) => setSelectedTab(v)}>
         <Tab label="consonants" value="consonants" />
@@ -60,7 +65,8 @@ function InventoryEditor({
         {selectedTab === "vowels" && vowelsInventoryTable}
       </TableContainer>
       <DialogActions>
-        <Button onClick={applyInventory}>Apply</Button>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={applyAndClose}>Apply</Button>
       </DialogActions>
     </Dialog>
   );

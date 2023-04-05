@@ -11,6 +11,7 @@ interface IPASkeletonHandler {
   selected: ComplexSymbol[];
   handleSelect: (symbol: ComplexSymbol) => void;
   loading: boolean;
+  collapse: () => ComplexSymbol[];
 }
 
 function useIPASkeleton(
@@ -44,7 +45,11 @@ function useIPASkeleton(
 
   const loading = skeleton.cells.length === 0;
 
-  return { skeleton, selected, handleSelect, loading };
+  const collapse = (): ComplexSymbol[] => {
+    return skeleton.collapse(selected);
+  };
+
+  return { skeleton, selected, handleSelect, loading, collapse };
 }
 
 export default useIPASkeleton;
