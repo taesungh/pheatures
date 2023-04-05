@@ -7,10 +7,12 @@ type Cell = string | ComplexSymbol;
 // Parses IPA Chart files to use for Inventory Editor
 // Based on SubSkeleton.java
 class IPASkeleton {
-  skeleton: Cell[][];
+  cells: Cell[][];
+  symbols: ComplexSymbol[];
 
   constructor(rawSkeleton: string[][], symbolList: BaseSymbolList) {
-    this.skeleton = rawSkeleton.map((row) =>
+    this.symbols = [];
+    this.cells = rawSkeleton.map((row) =>
       row.map((cell) => {
         cell = cell.trim();
 
@@ -34,9 +36,32 @@ class IPASkeleton {
         const baseSymbol = symbolList.symbols[base];
         // Map diacritic descriptions to their Diacritic objects
         const diacritics = diacriticLabels.map(diacriticList.getFromName.bind(diacriticList));
-        return ComplexSymbol.fromBaseSymbol(baseSymbol, diacritics);
+
+        const symbol = ComplexSymbol.fromBaseSymbol(baseSymbol, diacritics);
+        this.symbols.push(symbol);
+        return symbol;
       })
     );
+  }
+
+  // Provide equivalent symbols but with references from the skeleton cells
+  extract(symbols: ComplexSymbol[]): ComplexSymbol[] {
+    if (this.symbols.length === 0) {
+      return [];
+    }
+
+    const characterMap = new Map(this.symbols.map((symbol) => [symbol.displayCharacter, symbol]));
+    const references: ComplexSymbol[] = [];
+    for (const symbol of symbols) {
+      if (characterMap.has(symbol.displayCharacter)) {
+        references.push(characterMap.get(symbol.displayCharacter) as ComplexSymbol);
+      } else {
+        // TODO: symbol might have additional diacritics or be part of a different table
+        // insert new row in table near the matching base symbol?
+        console.warn("Initial selection includes an unknown symbol", symbol.displayCharacter);
+      }
+    }
+    return references;
   }
 }
 

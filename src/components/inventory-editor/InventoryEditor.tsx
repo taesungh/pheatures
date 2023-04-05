@@ -37,32 +37,15 @@ function InventoryEditor({
 }: InventoryEditorProps) {
   const [selectedTab, setSelectedTab] = useState<TableTabs>("consonants");
 
-  const [selected, setSelected] = useState<ComplexSymbol[]>(symbols);
+  const consonants = useIPASkeleton(consonantsChart, symbolList, symbols);
+  const vowels = useIPASkeleton(vowelsChart, symbolList, symbols);
 
-  const consonantTable = useIPASkeleton(consonantsChart, symbolList);
-  const vowelTable = useIPASkeleton(vowelsChart, symbolList);
-
-  if (consonantTable.skeleton.length === 0 || vowelTable.skeleton.length === 0) {
+  if (consonants.loading || vowels.loading) {
     return null;
   }
 
-  const handleSelect = (symbol: ComplexSymbol) => {
-    // if not selected, insert at end; otherwise, remove the value
-    setSelected((selected) => {
-      const selectedIndex = selected.indexOf(symbol);
-      return selectedIndex === -1
-        ? selected.concat(symbol)
-        : selected.slice(0, selectedIndex).concat(selected.slice(selectedIndex + 1));
-    });
-  };
-
-  const consonantsInventoryTable = (
-    <InventoryTable ipaSkeleton={consonantTable} selected={selected} handleSelect={handleSelect} />
-  );
-
-  const vowelsInventoryTable = (
-    <InventoryTable ipaSkeleton={vowelTable} selected={selected} handleSelect={handleSelect} />
-  );
+  const consonantsInventoryTable = <InventoryTable {...consonants} />;
+  const vowelsInventoryTable = <InventoryTable {...vowels} />;
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="lg">

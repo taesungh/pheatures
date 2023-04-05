@@ -8,20 +8,18 @@ import ComplexSymbol from "pheatures/ComplexSymbol";
 import IPASkeleton from "pheatures/IPASkeleton";
 
 interface InventoryTableProps {
-  ipaSkeleton: IPASkeleton;
+  skeleton: IPASkeleton;
   selected: ComplexSymbol[];
   handleSelect: (symbol: ComplexSymbol) => void;
 }
 
-function InventoryTable({ ipaSkeleton, selected, handleSelect }: InventoryTableProps) {
+function InventoryTable({ skeleton, selected, handleSelect }: InventoryTableProps) {
   const SymbolCell = ({ symbol }: { symbol: ComplexSymbol }) => (
     <TableCell>
       <label>
         <input
           type="checkbox"
-          checked={selected
-            .map((symbol) => symbol.displayCharacter)
-            .includes(symbol.displayCharacter)}
+          checked={selected.includes(symbol)}
           onChange={() => handleSelect(symbol)}
         />
         <span>{symbol.displayCharacter}</span>
@@ -33,13 +31,13 @@ function InventoryTable({ ipaSkeleton, selected, handleSelect }: InventoryTableP
     <Table stickyHeader>
       <TableHead>
         <TableRow>
-          {ipaSkeleton.skeleton[0].map((head) => {
+          {skeleton.cells[0].map((head) => {
             return <TableCell key={String(head)}>{String(head)}</TableCell>;
           })}
         </TableRow>
       </TableHead>
       <TableBody>
-        {ipaSkeleton.skeleton.slice(1).map((row, i) => (
+        {skeleton.cells.slice(1).map((row, i) => (
           <TableRow key={i}>
             {row.map((cell, j) => {
               if (typeof cell === "string") {
