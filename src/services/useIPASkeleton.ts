@@ -30,7 +30,7 @@ function useIPASkeleton(
   // update the selection to account for the existing symbol list
   const [selected, setSelected] = useState<ComplexSymbol[]>([]);
   useEffect(() => {
-    setSelected(skeleton.extract(symbols));
+    setSelected(skeleton.initialize(symbols));
   }, [skeleton, symbols]);
 
   const handleSelect = (symbol: ComplexSymbol): void => {
