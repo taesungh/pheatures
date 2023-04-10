@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -9,6 +10,7 @@ import TableContainer from "@mui/material/TableContainer";
 import Tabs from "@mui/material/Tabs";
 
 import consonantsChart from "assets/data/ipa-chart/ipachart-consonants.tsv";
+import otherChart from "assets/data/ipa-chart/ipachart-other.tsv";
 import vowelsChart from "assets/data/ipa-chart/ipachart-vowels.tsv";
 
 import BaseSymbolList from "pheatures/BaseSymbolList";
@@ -25,7 +27,7 @@ interface InventoryEditorProps {
   handleClose: () => void;
 }
 
-const tableTabs = ["consonants", "vowels"] as const;
+const tableTabs = ["consonants", "other", "vowels"] as const;
 type TableTabs = typeof tableTabs[number];
 
 function InventoryEditor({
@@ -38,6 +40,7 @@ function InventoryEditor({
   const [selectedTab, setSelectedTab] = useState<TableTabs>("consonants");
 
   const consonants = useIPASkeleton(consonantsChart, symbolList, symbols);
+  const other = useIPASkeleton(otherChart, symbolList, symbols);
   const vowels = useIPASkeleton(vowelsChart, symbolList, symbols);
 
   if (consonants.loading || vowels.loading) {
@@ -45,23 +48,27 @@ function InventoryEditor({
   }
 
   const applyAndClose = (): void => {
-    applyInventory([...consonants.collapse(), ...vowels.collapse()]);
+    applyInventory([...consonants.collapse(), ...other.collapse(), ...vowels.collapse()]);
     handleClose();
   };
 
   const consonantsInventoryTable = <InventoryTable {...consonants} />;
+  const otherInventoryTable = <InventoryTable {...other} />;
   const vowelsInventoryTable = <InventoryTable {...vowels} />;
 
   return (
     <Dialog open={open} maxWidth="lg">
       <DialogTitle>Edit Phoneme Inventory</DialogTitle>
-      <Tabs value={selectedTab} onChange={(e, v) => setSelectedTab(v)}>
-        <Tab label="consonants" value="consonants" />
-        <Tab label="vowels" value="vowels" />
-      </Tabs>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Tabs value={selectedTab} onChange={(e, v) => setSelectedTab(v)}>
+          <Tab label="consonants" value="consonants" />
+          <Tab label="other" value="other" />
+          <Tab label="vowels" value="vowels" />
+        </Tabs>
+      </Box>
       <TableContainer>
         {selectedTab === "consonants" && consonantsInventoryTable}
-        {/* {otherTable} */}
+        {selectedTab === "other" && otherInventoryTable}
         {selectedTab === "vowels" && vowelsInventoryTable}
       </TableContainer>
       <DialogActions>
