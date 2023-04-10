@@ -1,34 +1,34 @@
 /* subset formed with IPA symbols, question mark, and right arrow */
 /* generated at https://transfonter.org */
 @font-face {
-  font-family: "Minion 3 Subhead";
-  src: url("assets/fonts/subset-Minion3Subhead-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
+	font-family: "Minion 3 Subhead";
+	src: url("assets/fonts/subset-Minion3Subhead-Medium.woff2") format("woff2");
+	font-weight: 500;
+	font-style: normal;
 }
 
 /* adapted from reboot */
 
 p {
-  margin-top: 0;
-  margin-bottom: 1rem;
+	margin-top: 0;
+	margin-bottom: 1rem;
 }
 
 ol,
 ul {
-  padding-left: 2rem;
+	padding-left: 2rem;
 }
 
 ol,
 ul,
 dl {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
 }
 
 ol ol,
 ul ul,
 ol ul,
 ul ol {
-  margin-bottom: 0;
+	margin-bottom: 0;
 }

@@ -1,54 +1,54 @@
 {
-  "name": "pheatures",
-  "homepage": "https://taesungh.github.io/pheatures",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@emotion/react": "^11.9.0",
-    "@emotion/styled": "^11.8.1",
-    "@mui/icons-material": "^5.6.2",
-    "@mui/material": "^5.6.4",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.1.1",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/node": "^17.0.31",
-    "@types/react": "^18.0.8",
-    "@types/react-dom": "^18.0.3",
-    "papaparse": "^5.3.2",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.6.4",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
-    "test": "jest --watch",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@types/jest": "^27.5.0",
-    "@types/papaparse": "^5.3.2",
-    "jest": "^28.1.0",
-    "ts-jest": "^28.0.2"
-  }
+	"name": "pheatures",
+	"homepage": "https://taesungh.github.io/pheatures",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@emotion/react": "^11.9.0",
+		"@emotion/styled": "^11.8.1",
+		"@mui/icons-material": "^5.6.2",
+		"@mui/material": "^5.6.4",
+		"@testing-library/jest-dom": "^5.16.4",
+		"@testing-library/react": "^13.1.1",
+		"@testing-library/user-event": "^13.5.0",
+		"@types/node": "^17.0.31",
+		"@types/react": "^18.0.8",
+		"@types/react-dom": "^18.0.3",
+		"papaparse": "^5.3.2",
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0",
+		"react-scripts": "5.0.1",
+		"typescript": "^4.6.4",
+		"web-vitals": "^2.1.4"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "GENERATE_SOURCEMAP=false react-scripts build",
+		"test": "jest --watch",
+		"eject": "react-scripts eject"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"@types/jest": "^27.5.0",
+		"@types/papaparse": "^5.3.2",
+		"jest": "^28.1.0",
+		"ts-jest": "^28.0.2"
+	}
 }

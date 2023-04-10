@@ -8,15 +8,15 @@ import { Home } from "pages";
 import "./App.css";
 
 function App() {
-  return (
-    <div className="App">
-      <ThemeProvider theme={theme}>
-        <Header />
-        <Home />
-        <Footer />
-      </ThemeProvider>
-    </div>
-  );
+	return (
+		<div className="App">
+			<ThemeProvider theme={theme}>
+				<Header />
+				<Home />
+				<Footer />
+			</ThemeProvider>
+		</div>
+	);
 }
 
 export default App;

@@ -12,18 +12,18 @@ import TobaBatak from "./TobaBatak.inv";
 import Turkish from "./Turkish.inv";
 
 const inventories = {
-  EnglishNoDiphthongs,
-  German,
-  HypotheticalLanguage,
-  Ilokano,
-  Indonesian,
-  Japanese,
-  Korean,
-  Lango,
-  Lomongo,
-  Spanish,
-  TobaBatak,
-  Turkish,
+	EnglishNoDiphthongs,
+	German,
+	HypotheticalLanguage,
+	Ilokano,
+	Indonesian,
+	Japanese,
+	Korean,
+	Lango,
+	Lomongo,
+	Spanish,
+	TobaBatak,
+	Turkish,
 };
 
 export default inventories;

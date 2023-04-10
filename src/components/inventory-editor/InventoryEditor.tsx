@@ -20,63 +20,67 @@ import useIPASkeleton from "services/useIPASkeleton";
 import InventoryTable from "./InventoryTable";
 
 interface InventoryEditorProps {
-  open: boolean;
-  symbolList: BaseSymbolList;
-  symbols: ComplexSymbol[];
-  applyInventory: (symbols: ComplexSymbol[]) => void;
-  handleClose: () => void;
+	open: boolean;
+	symbolList: BaseSymbolList;
+	symbols: ComplexSymbol[];
+	applyInventory: (symbols: ComplexSymbol[]) => void;
+	handleClose: () => void;
 }
 
 const tableTabs = ["consonants", "other", "vowels"] as const;
-type TableTabs = typeof tableTabs[number];
+type TableTabs = (typeof tableTabs)[number];
 
 function InventoryEditor({
-  open,
-  symbolList,
-  symbols,
-  applyInventory,
-  handleClose,
+	open,
+	symbolList,
+	symbols,
+	applyInventory,
+	handleClose,
 }: InventoryEditorProps) {
-  const [selectedTab, setSelectedTab] = useState<TableTabs>("consonants");
+	const [selectedTab, setSelectedTab] = useState<TableTabs>("consonants");
 
-  const consonants = useIPASkeleton(consonantsChart, symbolList, symbols);
-  const other = useIPASkeleton(otherChart, symbolList, symbols);
-  const vowels = useIPASkeleton(vowelsChart, symbolList, symbols);
+	const consonants = useIPASkeleton(consonantsChart, symbolList, symbols);
+	const other = useIPASkeleton(otherChart, symbolList, symbols);
+	const vowels = useIPASkeleton(vowelsChart, symbolList, symbols);
 
-  if (consonants.loading || vowels.loading) {
-    return null;
-  }
+	if (consonants.loading || vowels.loading) {
+		return null;
+	}
 
-  const applyAndClose = (): void => {
-    applyInventory([...consonants.collapse(), ...other.collapse(), ...vowels.collapse()]);
-    handleClose();
-  };
+	const applyAndClose = (): void => {
+		applyInventory([
+			...consonants.collapse(),
+			...other.collapse(),
+			...vowels.collapse(),
+		]);
+		handleClose();
+	};
 
-  const consonantsInventoryTable = <InventoryTable {...consonants} />;
-  const otherInventoryTable = <InventoryTable {...other} />;
-  const vowelsInventoryTable = <InventoryTable {...vowels} />;
+	const consonantsInventoryTable = <InventoryTable {...consonants} />;
+	const otherInventoryTable = <InventoryTable {...other} />;
+	const vowelsInventoryTable = <InventoryTable {...vowels} />;
 
-  return (
-    <Dialog open={open} maxWidth="lg">
-      <DialogTitle>Edit Phoneme Inventory</DialogTitle>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs value={selectedTab} onChange={(e, v) => setSelectedTab(v)}>
-          <Tab label="consonants" value="consonants" />
-          <Tab label="other" value="other" />
-          <Tab label="vowels" value="vowels" />
-        </Tabs>
-      </Box>
-      <TableContainer>
-        {selectedTab === "consonants" && consonantsInventoryTable}
-        {selectedTab === "other" && otherInventoryTable}
-        {selectedTab === "vowels" && vowelsInventoryTable}
-      </TableContainer>
-      <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={applyAndClose}>Apply</Button>
-      </DialogActions>
-    </Dialog>
-  );
+	return (
+		<Dialog open={open} maxWidth="lg">
+			<DialogTitle>Edit Phoneme Inventory</DialogTitle>
+			<Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+				<Tabs value={selectedTab} onChange={(e, v) => setSelectedTab(v)}>
+					<Tab label="consonants" value="consonants" />
+					<Tab label="other" value="other" />
+					<Tab label="vowels" value="vowels" />
+				</Tabs>
+			</Box>
+			<TableContainer>
+				{selectedTab === "consonants" && consonantsInventoryTable}
+				{selectedTab === "other" && otherInventoryTable}
+				{selectedTab === "vowels" && vowelsInventoryTable}
+			</TableContainer>
+			<DialogActions>
+				<Button onClick={handleClose}>Cancel</Button>
+				<Button onClick={applyAndClose}>Apply</Button>
+			</DialogActions>
+		</Dialog>
+	);
 }
 
 export default InventoryEditor;
