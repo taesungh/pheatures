@@ -1,0 +1,21 @@
+.symbolLabel {
+	position: relative;
+	cursor: pointer;
+	display: block;
+	padding: 0.65rem;
+}
+
+.symbolLabel > [type="checkbox"] {
+	position: absolute;
+	/* display the element to be accessible but hide with opacity */
+	display: initial;
+	opacity: 0;
+}
+
+.symbolLabel:has(> :focus) {
+	background-color: lightgray;
+}
+
+.symbolLabel:has(> :focus:checked) {
+	background-color: lightblue;
+}
