@@ -15,8 +15,10 @@ import vowelsChart from "assets/data/ipa-chart/ipachart-vowels.tsv";
 
 import BaseSymbolList from "pheatures/BaseSymbolList";
 import ComplexSymbol from "pheatures/ComplexSymbol";
+import Diacritic from "pheatures/Diacritic";
 import useIPASkeleton from "services/useIPASkeleton";
 
+import DiacriticSelector from "./DiacriticSelector";
 import InventoryTable from "./InventoryTable";
 
 interface InventoryEditorProps {
@@ -42,6 +44,8 @@ function InventoryEditor({
 	const consonants = useIPASkeleton(consonantsChart, symbolList, symbols);
 	const other = useIPASkeleton(otherChart, symbolList, symbols);
 	const vowels = useIPASkeleton(vowelsChart, symbolList, symbols);
+
+	const [diacritic, setDiacritic] = useState<Diacritic | null>(null);
 
 	if (consonants.loading || vowels.loading) {
 		return null;
@@ -76,6 +80,7 @@ function InventoryEditor({
 				{selectedTab === "vowels" && vowelsInventoryTable}
 			</TableContainer>
 			<DialogActions>
+				<DiacriticSelector diacritic={diacritic} setDiacritic={setDiacritic} />
 				<Button onClick={handleClose}>Cancel</Button>
 				<Button onClick={applyAndClose}>Apply</Button>
 			</DialogActions>
