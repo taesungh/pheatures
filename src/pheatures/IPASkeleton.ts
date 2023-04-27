@@ -78,10 +78,31 @@ class IPASkeleton {
 		}
 
 		// Update array of all symbol references since new rows may have been added
-		this.symbols = this.cells
-			.flat()
-			.filter((cell) => typeof cell !== "string") as ComplexSymbol[];
+		this._refreshSymbols();
 		return references;
+	}
+
+	// Check if symbol is included in skeleton
+	// When adding a custom diacritic, the symbol may not be included
+	// Add the symbol if not part of the skeleton or return a reference if already included
+	verify(symbol: ComplexSymbol): ComplexSymbol {
+		// A "custom" diacritic could already be part of the skeleton,
+		//   e.g. dental/postalveolar and fronted/backed
+		// Check first by value rather than reference
+		const valueIndex = this.symbols.findIndex(
+			(s) => s.displayCharacter === symbol.displayCharacter
+		);
+		if (valueIndex !== -1) {
+			return this.symbols[valueIndex];
+		}
+
+		const index = this.symbols.indexOf(symbol);
+		if (index === -1) {
+			this._insertComplexSymbol(symbol);
+			this._refreshSymbols();
+			return symbol;
+		}
+		return this.symbols[index];
 	}
 
 	// Based on InventoryTableModel::ensureIncluded
@@ -135,6 +156,13 @@ class IPASkeleton {
 
 		// did not find a matching base symbol
 		return false;
+	}
+
+	// Update this.symbols with the symbols in cells
+	_refreshSymbols(): void {
+		this.symbols = this.cells
+			.flat()
+			.filter((cell) => typeof cell !== "string") as ComplexSymbol[];
 	}
 
 	// Flatten the skeleton cells, keeping only the selected

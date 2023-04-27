@@ -35,6 +35,17 @@ function useIPASkeleton(
 
 	const handleSelect = (symbol: ComplexSymbol): void => {
 		setSelected((selected) => {
+			// When selecting a custom diacritic, an equivalent but differing reference could be given
+			if (!selected.includes(symbol)) {
+				// Use the new reference provided by the skeleton
+				symbol = skeleton.verify(symbol);
+				if (selected.includes(symbol)) {
+					// TODO: alert already included
+					alert(`The symbol ${symbol.displayCharacter} is already selected.`);
+					return selected;
+				}
+			}
+
 			const selectedIndex = selected.indexOf(symbol);
 			// if not selected, insert at end; otherwise, remove the value
 			return selectedIndex === -1

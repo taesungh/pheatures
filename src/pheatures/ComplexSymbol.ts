@@ -54,6 +54,11 @@ class ComplexSymbol extends BaseSymbol {
 		});
 	}
 
+	// Provide a copy of this symbol with an additional diacritic
+	withDiacritic(diacritic: Diacritic): ComplexSymbol {
+		return ComplexSymbol.fromBaseSymbol(this, [...this.diacritics, diacritic]);
+	}
+
 	// Returns a new ComplexSymbol with the transformation applied to this symbol
 	// This symbol is added to the antecedent chain of the result
 	// The specified symbol list is used to determine the resulting character

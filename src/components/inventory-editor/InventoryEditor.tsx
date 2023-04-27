@@ -60,9 +60,15 @@ function InventoryEditor({
 		handleClose();
 	};
 
-	const consonantsInventoryTable = <InventoryTable {...consonants} />;
-	const otherInventoryTable = <InventoryTable {...other} />;
-	const vowelsInventoryTable = <InventoryTable {...vowels} />;
+	const consonantsInventoryTable = (
+		<InventoryTable {...consonants} diacritic={diacritic} setDiacritic={setDiacritic} />
+	);
+	const otherInventoryTable = (
+		<InventoryTable {...other} diacritic={diacritic} setDiacritic={setDiacritic} />
+	);
+	const vowelsInventoryTable = (
+		<InventoryTable {...vowels} diacritic={diacritic} setDiacritic={setDiacritic} />
+	);
 
 	return (
 		<Dialog open={open} maxWidth="lg">
