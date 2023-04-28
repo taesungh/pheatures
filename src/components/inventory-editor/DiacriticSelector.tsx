@@ -28,32 +28,55 @@ function DiacriticSelector({ diacritic, setDiacritic }: DiacriticSelectorProps) 
 		setAnchorEl(null);
 	};
 
-	const selectDiacritic = (d: Diacritic): void => {
+	const selectDiacritic = (d: Diacritic | null): void => {
 		setDiacritic(d);
 		handleClose();
 	};
 
+	const diacriticSelected = diacritic !== null;
+
 	return (
 		<>
-			<Button onClick={openDiacriticList}>
+			<Button
+				onClick={openDiacriticList}
+				variant={diacriticSelected ? "contained" : "outlined"}
+				size="small"
+			>
 				<Tooltip title="Add custom diacritic">
 					<Typography variant="phoneme">
 						{DOTTED_CIRCLE + (diacritic?.label || "")}
 					</Typography>
 				</Tooltip>
 			</Button>
-			<Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+			<Menu
+				anchorEl={anchorEl}
+				open={open}
+				onClose={handleClose}
+				sx={{
+					"& .MuiList-root": {
+						display: "grid",
+						gridTemplateColumns: "repeat(3, 1fr)",
+					},
+				}}
+			>
 				{diacriticList.items.map((d) => (
 					<MenuItem
 						key={d.description}
 						selected={d === diacritic}
 						onClick={() => selectDiacritic(d)}
 					>
-						<Tooltip title={d.description}>
+						<Tooltip title={d.description} placement="left">
 							<Typography variant="phoneme">{DOTTED_CIRCLE + d.label}</Typography>
 						</Tooltip>
 					</MenuItem>
 				))}
+				{diacriticSelected && (
+					<MenuItem onClick={() => selectDiacritic(null)}>
+						<Tooltip title="none" placement="left">
+							<Typography variant="phoneme">{DOTTED_CIRCLE}</Typography>
+						</Tooltip>
+					</MenuItem>
+				)}
 			</Menu>
 		</>
 	);
