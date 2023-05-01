@@ -110,52 +110,75 @@ class IPASkeleton {
 	// Diacritic Signatures identify additional rows which were not part of the origin skeleton
 	// This will make this.symbols stale
 	_insertComplexSymbol(symbol: ComplexSymbol): boolean {
+		const [rowIndex, baseIndex] = this._findCandidate(symbol);
+
+		if (rowIndex === -1) {
+			return false;
+		}
+
+		// check if rows nearby below were already added for this diacritic
+		for (
+			let i_candidate = rowIndex + 1;
+			i_candidate < this.cells.length;
+			++i_candidate
+		) {
+			const signature = this.diacriticSignature[i_candidate];
+			if (signature.size === 0) {
+				// reached a row which was originally part of the skeleton, so a new row needs to be added
+				break;
+			} else if (
+				_subset(symbol.diacritics, signature) &&
+				_subset(signature, symbol.diacritics)
+			) {
+				// symbol matches the signature of the candidate row, so place in this row
+				this.cells[i_candidate][baseIndex] = symbol;
+				return true;
+			}
+		}
+
+		// insert a new row with the symbol at the correct column
+		const newRow: Cell[] = Array(this.cells[0].length).fill("");
+		newRow[baseIndex] = symbol;
+
+		this.cells.splice(rowIndex + 1, 0, newRow);
+		this.diacriticSignature.splice(rowIndex + 1, 0, new Set(symbol.diacritics));
+		return true;
+	}
+
+	// Get coordinates of a candidate cell which should be the best match of subset of diacritics
+	_findCandidate(symbol: ComplexSymbol): [number, number] {
+		const isCandidate = (cell: Cell): boolean =>
+			typeof cell !== "string" &&
+			cell.character === symbol.character &&
+			_subset(cell.diacritics, symbol.diacritics);
+
 		for (let rowIndex = 0; rowIndex < this.cells.length; rowIndex++) {
 			const row = this.cells[rowIndex];
 			// check if row contains symbol with the same base character and subset of diacritics
-			const baseIndex = row.findIndex(
-				(cell) =>
-					typeof cell !== "string" &&
-					cell.character === symbol.character &&
-					_subset(cell.diacritics, symbol.diacritics)
-			);
+			let baseIndex = row.findIndex(isCandidate);
 
 			// try next row if matching base not found
 			if (baseIndex === -1) {
 				continue;
 			}
 
-			// check if rows nearby below were already added for this diacritic
-			for (
-				let i_candidate = rowIndex + 1;
-				i_candidate < this.cells.length;
-				++i_candidate
+			// right neighbor could be postalveolar or backed velar which could better match
+			// since base candidate would be prematurely found
+			const candidateCell = row[baseIndex] as ComplexSymbol;
+			const rightNeighbor = row.at(baseIndex + 1);
+			if (
+				rightNeighbor !== undefined &&
+				isCandidate(rightNeighbor) &&
+				(rightNeighbor as ComplexSymbol).diacritics.length >
+					candidateCell.diacritics.length
 			) {
-				const signature = this.diacriticSignature[i_candidate];
-				if (signature.size === 0) {
-					// reached a row which was originally part of the skeleton, so a new row needs to be added
-					break;
-				} else if (
-					_subset(symbol.diacritics, signature) &&
-					_subset(signature, symbol.diacritics)
-				) {
-					// symbol matches the signature of the candidate row, so place in this row
-					this.cells[i_candidate][baseIndex] = symbol;
-					return true;
-				}
+				baseIndex += 1;
 			}
-
-			// insert a new row with the symbol at the correct column
-			const newRow: Cell[] = Array(row.length).fill("");
-			newRow[baseIndex] = symbol;
-
-			this.cells.splice(rowIndex + 1, 0, newRow);
-			this.diacriticSignature.splice(rowIndex + 1, 0, new Set(symbol.diacritics));
-			return true;
+			return [rowIndex, baseIndex];
 		}
 
-		// did not find a matching base symbol
-		return false;
+		// Indicate no potential candidate found
+		return [-1, -1];
 	}
 
 	// Update this.symbols with the symbols in cells
