@@ -38,12 +38,10 @@ function InventoryTable({
 
 	const SymbolCell = ({ symbol }: { symbol: ComplexSymbol }) => {
 		if (diacritic) {
-			const canApply =
-				symbol.matches(diacritic.from) && !symbol.diacritics.includes(diacritic);
-
-			if (!canApply) {
-				// TODO: more specific error message
-				const tooltip = `This diacritic cannot be applied because it requires the base symbol to be ${diacritic.from}`;
+			if (!diacritic.canApplyTo(symbol)) {
+				const tooltip = `This diacritic cannot be applied because it requires the base symbol to be ${
+					diacritic.from
+				}, but the symbol is ${diacritic.incompatibility(symbol)}`;
 				return (
 					<TableCell align="center" padding="none">
 						<Tooltip title={tooltip}>

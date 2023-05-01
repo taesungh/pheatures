@@ -47,6 +47,19 @@ class FeatureChange {
 		);
 	}
 
+	// Return a new change set with how the given features conflict with this FeatureChange
+	// Ignores changes which are not part of this FeatureChange
+	difference(features: PartialFeatureSpecification): FeatureChange {
+		return new FeatureChange(
+			Object.fromEntries(
+				Object.entries(features).filter(
+					([name, value]) =>
+						name in this.features && this.features[name as FeatureName] !== value
+				)
+			)
+		);
+	}
+
 	applyChanges(change: FeatureChange): void {
 		Object.entries(change.features).forEach(([name, value]) => {
 			this.features[name as FeatureName] = value;
