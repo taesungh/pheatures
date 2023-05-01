@@ -116,6 +116,11 @@ class IPASkeleton {
 			return false;
 		}
 
+		const candidateCell = this.cells[rowIndex][baseIndex] as ComplexSymbol;
+		const additionalDiacritics = symbol.diacritics.filter(
+			(d) => !candidateCell.diacritics.includes(d)
+		);
+
 		// check if rows nearby below were already added for this diacritic
 		for (
 			let i_candidate = rowIndex + 1;
@@ -127,8 +132,8 @@ class IPASkeleton {
 				// reached a row which was originally part of the skeleton, so a new row needs to be added
 				break;
 			} else if (
-				_subset(symbol.diacritics, signature) &&
-				_subset(signature, symbol.diacritics)
+				_subset(additionalDiacritics, signature) &&
+				_subset(signature, additionalDiacritics)
 			) {
 				// symbol matches the signature of the candidate row, so place in this row
 				this.cells[i_candidate][baseIndex] = symbol;
@@ -141,7 +146,7 @@ class IPASkeleton {
 		newRow[baseIndex] = symbol;
 
 		this.cells.splice(rowIndex + 1, 0, newRow);
-		this.diacriticSignature.splice(rowIndex + 1, 0, new Set(symbol.diacritics));
+		this.diacriticSignature.splice(rowIndex + 1, 0, new Set(additionalDiacritics));
 		return true;
 	}
 
