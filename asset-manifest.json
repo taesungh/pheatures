@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/pheatures/static/css/main.6308038f.css",
-    "main.js": "/pheatures/static/js/main.c60b22d7.js",
+    "main.js": "/pheatures/static/js/main.c7acb7ee.js",
     "static/js/27.ffda6246.chunk.js": "/pheatures/static/js/27.ffda6246.chunk.js",
     "static/media/subset-Minion3Subhead-Medium.woff2": "/pheatures/static/media/subset-Minion3Subhead-Medium.61a43da4b6ce99583e4e.woff2",
     "static/media/symbol-list.tsv": "/pheatures/static/media/symbol-list.b90444c3f1eb4d1cd985.tsv",
@@ -24,6 +24,6 @@
   },
   "entrypoints": [
     "static/css/main.6308038f.css",
-    "static/js/main.c60b22d7.js"
+    "static/js/main.c7acb7ee.js"
   ]
 }
