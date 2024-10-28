@@ -9,4 +9,5 @@ export default defineConfig({
 			"@/": "/src/",
 		},
 	},
+	assetsInclude: ["**/*.tsv", "**/*.inv"],
 });
