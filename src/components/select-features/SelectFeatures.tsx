@@ -5,7 +5,11 @@ import MenuItem from "@mui/material/MenuItem";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 
-import { FeatureName, featureNames, FeatureValue } from "pheatures/FeatureSpecification";
+import {
+	FeatureName,
+	featureNames,
+	FeatureValue,
+} from "@/pheatures/FeatureSpecification";
 
 type FeatureQuery = {
 	value: FeatureValue;

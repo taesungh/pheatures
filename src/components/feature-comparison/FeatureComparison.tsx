@@ -10,9 +10,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 
-import { commonFeatures, differentFeatures } from "pheatures/Compare";
-import ComplexSymbol from "pheatures/ComplexSymbol";
-import { FeatureDisplayExplicit } from "pheatures/FeatureSpecification";
+import { commonFeatures, differentFeatures } from "@/pheatures/Compare";
+import ComplexSymbol from "@/pheatures/ComplexSymbol";
+import { FeatureDisplayExplicit } from "@/pheatures/FeatureSpecification";
 
 const stickyColumn1 = {
 	position: "sticky",

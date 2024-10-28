@@ -9,13 +9,13 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Tooltip from "@mui/material/Tooltip";
 
-import { InventoryEditor } from "components";
-import BaseSymbolList from "pheatures/BaseSymbolList";
-import ComplexSymbol from "pheatures/ComplexSymbol";
-import PhonemeInventory from "pheatures/PhonemeInventory";
-import useFileData from "utils/useFileData";
+import { InventoryEditor } from "@/components";
+import BaseSymbolList from "@/pheatures/BaseSymbolList";
+import ComplexSymbol from "@/pheatures/ComplexSymbol";
+import PhonemeInventory from "@/pheatures/PhonemeInventory";
+import useFileData from "@/utils/useFileData";
 
-import inventories from "assets/data/phoneme-inventories";
+import inventories from "@/assets/data/phoneme-inventories";
 
 interface InventorySelectorProps {
 	symbolList: BaseSymbolList;

@@ -9,14 +9,14 @@ import Tab from "@mui/material/Tab";
 import TableContainer from "@mui/material/TableContainer";
 import Tabs from "@mui/material/Tabs";
 
-import consonantsChart from "assets/data/ipa-chart/ipachart-consonants.tsv";
-import otherChart from "assets/data/ipa-chart/ipachart-other.tsv";
-import vowelsChart from "assets/data/ipa-chart/ipachart-vowels.tsv";
+import consonantsChart from "@/assets/data/ipa-chart/ipachart-consonants.tsv";
+import otherChart from "@/assets/data/ipa-chart/ipachart-other.tsv";
+import vowelsChart from "@/assets/data/ipa-chart/ipachart-vowels.tsv";
 
-import BaseSymbolList from "pheatures/BaseSymbolList";
-import ComplexSymbol from "pheatures/ComplexSymbol";
-import Diacritic from "pheatures/Diacritic";
-import useIPASkeleton from "services/useIPASkeleton";
+import BaseSymbolList from "@/pheatures/BaseSymbolList";
+import ComplexSymbol from "@/pheatures/ComplexSymbol";
+import Diacritic from "@/pheatures/Diacritic";
+import useIPASkeleton from "@/services/useIPASkeleton";
 
 import DiacriticSelector from "./DiacriticSelector";
 import InventoryTable from "./InventoryTable";

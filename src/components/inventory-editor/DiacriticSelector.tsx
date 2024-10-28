@@ -6,8 +6,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 
-import Diacritic from "pheatures/Diacritic";
-import { diacriticList } from "pheatures/Diacritics";
+import Diacritic from "@/pheatures/Diacritic";
+import { diacriticList } from "@/pheatures/Diacritics";
 
 const DOTTED_CIRCLE = "\u25cc";
 

@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 
-import useFileData from "utils/useFileData";
+import useFileData from "@/utils/useFileData";
 
-import BaseSymbolList from "pheatures/BaseSymbolList";
-import ComplexSymbol from "pheatures/ComplexSymbol";
-import IPASkeleton from "pheatures/IPASkeleton";
+import BaseSymbolList from "@/pheatures/BaseSymbolList";
+import ComplexSymbol from "@/pheatures/ComplexSymbol";
+import IPASkeleton from "@/pheatures/IPASkeleton";
 
 interface IPASkeletonHandler {
 	skeleton: IPASkeleton;
