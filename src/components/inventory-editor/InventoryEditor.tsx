@@ -29,8 +29,7 @@ interface InventoryEditorProps {
 	handleClose: () => void;
 }
 
-const tableTabs = ["consonants", "other", "vowels"] as const;
-type TableTabs = (typeof tableTabs)[number];
+type TableTabs = "consonants" | "other" | "vowels";
 
 function InventoryEditor({
 	open,
@@ -74,7 +73,7 @@ function InventoryEditor({
 		<Dialog open={open} maxWidth="lg">
 			<DialogTitle>Edit Phoneme Inventory</DialogTitle>
 			<Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-				<Tabs value={selectedTab} onChange={(e, v) => setSelectedTab(v)}>
+				<Tabs value={selectedTab} onChange={(_, v) => setSelectedTab(v)}>
 					<Tab label="consonants" value="consonants" />
 					<Tab label="other" value="other" />
 					<Tab label="vowels" value="vowels" />
