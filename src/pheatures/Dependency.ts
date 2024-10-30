@@ -1,6 +1,6 @@
 import FeatureChange from "./FeatureChange";
 
-import dependenciesData from "assets/data/rules/dependencies.json";
+import dependenciesData from "@/assets/data/rules/dependencies.json";
 
 // represents a dependency: a certain feature change may imply another change
 // e.g. +high implies -low

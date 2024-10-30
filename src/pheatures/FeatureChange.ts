@@ -87,7 +87,8 @@ class FeatureChange {
 	removeFeature(featureName: FeatureName): FeatureChange {
 		return new FeatureChange(
 			Object.fromEntries(
-				Object.entries(this.features).filter(([name, value]) => name !== featureName)
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				Object.entries(this.features).filter(([name, _]) => name !== featureName)
 			)
 		);
 	}

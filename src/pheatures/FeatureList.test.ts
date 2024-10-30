@@ -1,11 +1,11 @@
-import { CONS, DIA, VOW } from "utils/phonemes";
+import { CONS, DIA, VOW } from "@/utils/phonemes";
 
 import BaseSymbolList from "./BaseSymbolList";
 import FeatureList from "./FeatureList";
 import PhonemeInventory from "./PhonemeInventory";
 
-import inventories from "assets/data/phoneme-inventories/";
-import rawSymbols from "assets/data/symbol-list.tsv";
+import inventories from "@/assets/data/phoneme-inventories/";
+import rawSymbols from "@/assets/data/symbol-list.tsv";
 
 const SYMBOL_UNKNOWN = "?";
 

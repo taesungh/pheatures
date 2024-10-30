@@ -5,7 +5,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 
-import Message from "pheatures/Message";
+import Message from "@/pheatures/Message";
 
 import "./Messages.css";
 

@@ -17,15 +17,15 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { visuallyHidden } from "@mui/utils";
 
-import ComplexSymbol from "pheatures/ComplexSymbol";
-import FeatureList from "pheatures/FeatureList";
+import ComplexSymbol from "@/pheatures/ComplexSymbol";
+import FeatureList from "@/pheatures/FeatureList";
 import {
 	FeatureDisplayValues,
 	FeatureName,
 	featureNames,
-} from "pheatures/FeatureSpecification";
+} from "@/pheatures/FeatureSpecification";
 
-import { FeatureComparison } from "components";
+import { FeatureComparison } from "@/components";
 
 const stickyColumn1 = {
 	position: "sticky",

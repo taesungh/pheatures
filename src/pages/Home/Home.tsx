@@ -1,5 +1,6 @@
 import Container from "@mui/material/Container";
-import { Pheatures } from "components";
+
+import { Pheatures } from "@/components";
 
 function Home() {
 	return (

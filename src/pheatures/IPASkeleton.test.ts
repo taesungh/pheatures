@@ -1,5 +1,5 @@
-import consonantsChart from "assets/data/ipa-chart/ipachart-consonants.tsv";
-import rawSymbols from "assets/data/symbol-list.tsv";
+import consonantsChart from "@/assets/data/ipa-chart/ipachart-consonants.tsv";
+import rawSymbols from "@/assets/data/symbol-list.tsv";
 
 import BaseSymbolList from "./BaseSymbolList";
 import ComplexSymbol from "./ComplexSymbol";
