@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/pheatures/static/css/main.6308038f.css",
-    "main.js": "/pheatures/static/js/main.c7acb7ee.js",
-    "static/js/27.ffda6246.chunk.js": "/pheatures/static/js/27.ffda6246.chunk.js",
+    "main.css": "/pheatures/static/css/main.0ad00df0.css",
+    "main.js": "/pheatures/static/js/main.0026b27c.js",
+    "static/js/206.7b19377f.chunk.js": "/pheatures/static/js/206.7b19377f.chunk.js",
     "static/media/subset-Minion3Subhead-Medium.woff2": "/pheatures/static/media/subset-Minion3Subhead-Medium.61a43da4b6ce99583e4e.woff2",
     "static/media/symbol-list.tsv": "/pheatures/static/media/symbol-list.b90444c3f1eb4d1cd985.tsv",
     "static/media/ipachart-consonants.tsv": "/pheatures/static/media/ipachart-consonants.2f33bef105d027ec859b.tsv",
@@ -23,7 +23,7 @@
     "static/media/Spanish.inv": "/pheatures/static/media/Spanish.38c964cbfd0d329bcdef.inv"
   },
   "entrypoints": [
-    "static/css/main.6308038f.css",
-    "static/js/main.c7acb7ee.js"
+    "static/css/main.0ad00df0.css",
+    "static/js/main.0026b27c.js"
   ]
 }
