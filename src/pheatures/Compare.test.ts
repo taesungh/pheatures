@@ -1,12 +1,11 @@
+import { expect, test } from "vitest";
+
 import { CONS, DIA, VOW } from "@/utils/phonemes";
 
-import BaseSymbolList from "./BaseSymbolList";
 import { commonFeatures, differentFeatures } from "./Compare";
 import PhonemeInventory from "./PhonemeInventory";
 
-import rawSymbols from "@/assets/data/symbol-list.tsv";
-
-const symbolList = new BaseSymbolList(rawSymbols);
+import symbolList from "./SymbolList.test";
 
 test("can find different features", () => {
 	const symbols = [symbolList.symbols[VOW.OMFU], symbolList.symbols[VOW.MCU]];
