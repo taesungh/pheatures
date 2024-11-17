@@ -8,9 +8,9 @@ import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 
-import ComplexSymbol from "pheatures/ComplexSymbol";
-import Diacritic from "pheatures/Diacritic";
-import IPASkeleton from "pheatures/IPASkeleton";
+import ComplexSymbol from "@/pheatures/ComplexSymbol";
+import Diacritic from "@/pheatures/Diacritic";
+import IPASkeleton from "@/pheatures/IPASkeleton";
 
 import "./InventoryTable.css";
 

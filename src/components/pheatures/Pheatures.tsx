@@ -5,12 +5,12 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 
-import { InventorySelector, Messages, SelectFeatures, Spreadsheet } from "components";
+import { InventorySelector, Messages, SelectFeatures, Spreadsheet } from "@/components";
 
-import ComplexSymbol from "pheatures/ComplexSymbol";
-import FeatureList from "pheatures/FeatureList";
-import usePhonemeInventory from "services/usePhonemeInventory";
-import useSymbolList from "services/useSymbolList";
+import ComplexSymbol from "@/pheatures/ComplexSymbol";
+import FeatureList from "@/pheatures/FeatureList";
+import usePhonemeInventory from "@/services/usePhonemeInventory";
+import useSymbolList from "@/services/useSymbolList";
 
 function Pheatures() {
 	const symbolList = useSymbolList();

@@ -2,7 +2,7 @@ import BaseSymbol from "./BaseSymbol";
 import Diacritic from "./Diacritic";
 import FeatureChange from "./FeatureChange";
 
-import diacriticsData from "assets/data/rules/diacritics.json";
+import diacriticsData from "@/assets/data/rules/diacritics.json";
 
 // Maintains an array of Diacritic objects in a specific order
 // This order is used when determining the order to display them

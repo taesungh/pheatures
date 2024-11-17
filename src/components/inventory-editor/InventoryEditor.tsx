@@ -9,14 +9,14 @@ import Tab from "@mui/material/Tab";
 import TableContainer from "@mui/material/TableContainer";
 import Tabs from "@mui/material/Tabs";
 
-import consonantsChart from "assets/data/ipa-chart/ipachart-consonants.tsv";
-import otherChart from "assets/data/ipa-chart/ipachart-other.tsv";
-import vowelsChart from "assets/data/ipa-chart/ipachart-vowels.tsv";
+import consonantsChart from "@/assets/data/ipa-chart/ipachart-consonants.tsv";
+import otherChart from "@/assets/data/ipa-chart/ipachart-other.tsv";
+import vowelsChart from "@/assets/data/ipa-chart/ipachart-vowels.tsv";
 
-import BaseSymbolList from "pheatures/BaseSymbolList";
-import ComplexSymbol from "pheatures/ComplexSymbol";
-import Diacritic from "pheatures/Diacritic";
-import useIPASkeleton from "services/useIPASkeleton";
+import BaseSymbolList from "@/pheatures/BaseSymbolList";
+import ComplexSymbol from "@/pheatures/ComplexSymbol";
+import Diacritic from "@/pheatures/Diacritic";
+import useIPASkeleton from "@/services/useIPASkeleton";
 
 import DiacriticSelector from "./DiacriticSelector";
 import InventoryTable from "./InventoryTable";
@@ -29,8 +29,7 @@ interface InventoryEditorProps {
 	handleClose: () => void;
 }
 
-const tableTabs = ["consonants", "other", "vowels"] as const;
-type TableTabs = (typeof tableTabs)[number];
+type TableTabs = "consonants" | "other" | "vowels";
 
 function InventoryEditor({
 	open,
@@ -74,7 +73,7 @@ function InventoryEditor({
 		<Dialog open={open} maxWidth="lg">
 			<DialogTitle>Edit Phoneme Inventory</DialogTitle>
 			<Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-				<Tabs value={selectedTab} onChange={(e, v) => setSelectedTab(v)}>
+				<Tabs value={selectedTab} onChange={(_, v) => setSelectedTab(v)}>
 					<Tab label="consonants" value="consonants" />
 					<Tab label="other" value="other" />
 					<Tab label="vowels" value="vowels" />

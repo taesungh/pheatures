@@ -1,6 +1,6 @@
 import FeatureChange from "./FeatureChange";
 
-import contradictionsData from "assets/data/rules/contradictions.json";
+import contradictionsData from "@/assets/data/rules/contradictions.json";
 
 class Contradictions {
 	// holds feature changes which could not exist
