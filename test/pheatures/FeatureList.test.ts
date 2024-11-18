@@ -2,7 +2,8 @@ import { expect, test } from "vitest";
 
 import { CONS, DIA, VOW } from "@/utils/phonemes";
 
-import FeatureList from "./FeatureList";
+import FeatureList from "@/pheatures/FeatureList";
+
 import inventories from "./PhonemeInventory.test.ts";
 import symbolList from "./SymbolList.test";
 

@@ -3,8 +3,8 @@ import { expect, test } from "vitest";
 import symbolListPath from "@/assets/data/symbol-list.tsv";
 import parseFile from "@/utils/dataTransformer";
 
-import { RawSymbol } from "./BaseSymbol";
-import BaseSymbolList from "./BaseSymbolList";
+import { RawSymbol } from "@/pheatures/BaseSymbol";
+import BaseSymbolList from "@/pheatures/BaseSymbolList";
 
 const rawSymbols = parseFile<RawSymbol>(symbolListPath, true);
 const symbolList = new BaseSymbolList(rawSymbols);

@@ -2,8 +2,8 @@ import { expect, test } from "vitest";
 
 import { CONS, DIA, VOW } from "@/utils/phonemes";
 
-import { commonFeatures, differentFeatures } from "./Compare";
-import PhonemeInventory from "./PhonemeInventory";
+import { commonFeatures, differentFeatures } from "@/pheatures/Compare";
+import PhonemeInventory from "@/pheatures/PhonemeInventory";
 
 import symbolList from "./SymbolList.test";
 

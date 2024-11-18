@@ -3,9 +3,9 @@ import { expect, test } from "vitest";
 import consonantChartsPath from "@/assets/data/ipa-chart/ipachart-consonants.tsv";
 import parseFile from "@/utils/dataTransformer";
 
-import ComplexSymbol from "./ComplexSymbol";
-import { diacriticList } from "./Diacritics";
-import IPASkeleton from "./IPASkeleton";
+import ComplexSymbol from "@/pheatures/ComplexSymbol";
+import { diacriticList } from "@/pheatures/Diacritics";
+import IPASkeleton from "@/pheatures/IPASkeleton";
 
 import symbolList from "./SymbolList.test";
 

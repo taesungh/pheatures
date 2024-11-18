@@ -3,7 +3,8 @@ import { expect, test } from "vitest";
 import inventoryFiles from "@/assets/data/phoneme-inventories/";
 import parseFile from "@/utils/dataTransformer";
 
-import PhonemeInventory from "./PhonemeInventory";
+import PhonemeInventory from "@/pheatures/PhonemeInventory";
+
 import symbolList from "./SymbolList.test";
 
 type InventoryName = keyof typeof inventoryFiles;
