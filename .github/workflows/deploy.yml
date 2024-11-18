@@ -35,7 +35,8 @@ jobs:
         run: npm ci
 
       - name: Build React project
-        run: npm run build
+        # Specify base path to match subpath of GitHub Pages deployment
+        run: npm run build --base=/pheatures/
 
       - name: Set Up Pages
         uses: actions/configure-pages@v5

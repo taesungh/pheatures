@@ -5,6 +5,7 @@ dist-ssr
 
 .DS_Store
 *.local
+coverage
 
 npm-debug.log*
 yarn-debug.log*

@@ -1,21 +1,17 @@
+import { expect, test } from "vitest";
+
 import { CONS, DIA, VOW } from "@/utils/phonemes";
 
-import BaseSymbolList from "./BaseSymbolList";
 import FeatureList from "./FeatureList";
-import PhonemeInventory from "./PhonemeInventory";
+import inventories from "./PhonemeInventory.test.ts";
+import symbolList from "./SymbolList.test";
 
-import inventories from "@/assets/data/phoneme-inventories/";
-import rawSymbols from "@/assets/data/symbol-list.tsv";
+const inventoryEnglish = inventories.EnglishNoDiphthongs;
+const inventoryGerman = inventories.German;
+const inventoryHypothetical = inventories.HypotheticalLanguage;
+const inventoryKorean = inventories.Korean;
 
 const SYMBOL_UNKNOWN = "?";
-
-const symbolList = new BaseSymbolList(rawSymbols);
-
-const { EnglishNoDiphthongs, German, HypotheticalLanguage, Korean } = inventories;
-const inventoryEnglish = PhonemeInventory.fromData(EnglishNoDiphthongs, symbolList);
-const inventoryGerman = PhonemeInventory.fromData(German, symbolList);
-const inventoryHypothetical = PhonemeInventory.fromData(HypotheticalLanguage, symbolList);
-const inventoryKorean = PhonemeInventory.fromData(Korean, symbolList);
 
 const selectionCharacters = (featureList: FeatureList): string[] =>
 	featureList.items.map((symbol) => symbol.antecedent.displayCharacter);
