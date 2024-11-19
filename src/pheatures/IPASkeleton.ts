@@ -71,7 +71,8 @@ class IPASkeleton {
 
 		for (const symbol of symbols) {
 			if (characterMap.has(symbol.displayCharacter)) {
-				references.push(characterMap.get(symbol.displayCharacter) as ComplexSymbol);
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				references.push(characterMap.get(symbol.displayCharacter)!);
 			} else {
 				// Symbol might have additional diacritics or be part of a different table
 				if (this._insertComplexSymbol(symbol)) {

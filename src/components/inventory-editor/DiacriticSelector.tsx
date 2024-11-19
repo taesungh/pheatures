@@ -43,9 +43,7 @@ function DiacriticSelector({ diacritic, setDiacritic }: DiacriticSelectorProps) 
 				size="small"
 			>
 				<Tooltip title="Add custom diacritic">
-					<Typography variant="phoneme">
-						{DOTTED_CIRCLE + (diacritic?.label || "")}
-					</Typography>
+					<Typography variant="phoneme">{DOTTED_CIRCLE + (diacritic?.label ?? "")}</Typography>
 				</Tooltip>
 			</Button>
 			<Menu

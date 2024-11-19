@@ -104,7 +104,7 @@ function Spreadsheet({ featureList }: SpreadsheetProps) {
 		setOrderBy(property);
 	};
 
-	const isSelected = (symbol: ComplexSymbol) => selected.indexOf(symbol) !== -1;
+	const isSelected = (symbol: ComplexSymbol) => selected.includes(symbol);
 	const numSelected = selected.length;
 
 	// list of symbols sorted by ordering criterion

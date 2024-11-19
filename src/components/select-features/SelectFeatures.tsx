@@ -5,17 +5,13 @@ import MenuItem from "@mui/material/MenuItem";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 
-import {
-	FeatureName,
-	featureNames,
-	FeatureValue,
-} from "@/pheatures/FeatureSpecification";
+import { FeatureName, featureNames, FeatureValue } from "@/pheatures/FeatureSpecification";
 
-type FeatureQuery = {
+interface FeatureQuery {
 	value: FeatureValue;
 	name: FeatureName | null;
 	uid: number;
-};
+}
 
 // maintain unique IDs to use as keys in map
 // compared to indexing, this allows reordering, e.g. if earlier row is removed

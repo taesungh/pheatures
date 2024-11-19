@@ -7,7 +7,11 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(
 	{ ignores: ["dist"] },
 	{
-		extends: [js.configs.recommended, ...tseslint.configs.strictTypeChecked],
+		extends: [
+			js.configs.recommended,
+			...tseslint.configs.strictTypeChecked,
+			...tseslint.configs.stylisticTypeChecked,
+		],
 		files: ["**/*.{ts,tsx}"],
 		languageOptions: {
 			ecmaVersion: 2020,
@@ -23,6 +27,7 @@ export default tseslint.config(
 		},
 		rules: {
 			...reactHooks.configs.recommended.rules,
+			"@typescript-eslint/dot-notation": ["error", { allowIndexSignaturePropertyAccess: true }],
 			"@typescript-eslint/no-confusing-void-expression": ["error", { ignoreArrowShorthand: true }],
 			"@typescript-eslint/restrict-template-expressions": [
 				"error",
