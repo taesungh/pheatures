@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import Dependency from "./Dependency";
 import FeatureChange from "./FeatureChange";
 
@@ -10,9 +11,9 @@ enum MessageType {
 class Message {
 	type: MessageType;
 	title: string;
-	detail: JSX.Element;
+	detail: ReactElement;
 
-	constructor(type: MessageType, title: string, detail: JSX.Element) {
+	constructor(type: MessageType, title: string, detail: ReactElement) {
 		this.type = type;
 		this.title = title;
 		this.detail = detail;

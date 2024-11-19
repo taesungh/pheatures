@@ -7,7 +7,7 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(
 	{ ignores: ["dist"] },
 	{
-		extends: [js.configs.recommended, ...tseslint.configs.recommendedTypeChecked],
+		extends: [js.configs.recommended, ...tseslint.configs.strictTypeChecked],
 		files: ["**/*.{ts,tsx}"],
 		languageOptions: {
 			ecmaVersion: 2020,
@@ -23,6 +23,7 @@ export default tseslint.config(
 		},
 		rules: {
 			...reactHooks.configs.recommended.rules,
+			"@typescript-eslint/no-confusing-void-expression": ["error", { ignoreArrowShorthand: true }],
 			"@typescript-eslint/restrict-template-expressions": [
 				"error",
 				{
