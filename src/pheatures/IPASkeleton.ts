@@ -15,6 +15,7 @@ function _subset<T>(a: Iterable<T>, b: Iterable<T>): boolean {
 class IPASkeleton {
 	cells: Cell[][];
 	symbols: ComplexSymbol[];
+	// Tracks the diacritics that characterize each row
 	diacriticSignature: Set<Diacritic>[];
 
 	constructor(rawSkeleton: string[][], symbolList: BaseSymbolList) {
@@ -51,7 +52,9 @@ class IPASkeleton {
 				return symbol;
 			})
 		);
-		this.diacriticSignature = [...Array(this.cells.length)].map(() => new Set());
+		this.diacriticSignature = [...Array<undefined>(this.cells.length)].map(
+			() => new Set()
+		);
 	}
 
 	// Provide equivalent symbols but with references from the skeleton cells
@@ -142,7 +145,7 @@ class IPASkeleton {
 		}
 
 		// insert a new row with the symbol at the correct column
-		const newRow: Cell[] = Array(this.cells[0].length).fill("");
+		const newRow = Array<Cell>(this.cells[0].length).fill("");
 		newRow[baseIndex] = symbol;
 
 		this.cells.splice(rowIndex + 1, 0, newRow);
@@ -188,9 +191,7 @@ class IPASkeleton {
 
 	// Update this.symbols with the symbols in cells
 	_refreshSymbols(): void {
-		this.symbols = this.cells
-			.flat()
-			.filter((cell) => typeof cell !== "string") as ComplexSymbol[];
+		this.symbols = this.cells.flat().filter((cell) => typeof cell !== "string");
 	}
 
 	// Flatten the skeleton cells, keeping only the selected

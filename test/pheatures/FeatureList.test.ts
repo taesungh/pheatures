@@ -20,13 +20,13 @@ const selectionCharacters = (featureList: FeatureList): string[] =>
 const resultCharacters = (featureList: FeatureList): string[] =>
 	featureList.items.map((symbol) => symbol.displayCharacter);
 
-test("can run basic selection and transform", async () => {
+test("can run basic selection and transform", () => {
 	const featureList = new FeatureList(inventoryEnglish, symbolList, "-delayed release", "+voice");
 	expect(selectionCharacters(featureList)).toEqual(["p", "t", "k", "b", "d", "\u0261"]);
 	expect(resultCharacters(featureList)).toEqual(["b", "d", "\u0261", "b", "d", "\u0261"]);
 });
 
-test("warns about unnecessary selection", async () => {
+test("warns about unnecessary selection", () => {
 	const featureList = new FeatureList(
 		inventoryEnglish,
 		symbolList,
@@ -38,7 +38,7 @@ test("warns about unnecessary selection", async () => {
 	expect(featureList.messages[0].title === "Unnecessary features are selected");
 });
 
-test("diacritic in inventory changes features", async () => {
+test("diacritic in inventory changes features", () => {
 	const featureList = new FeatureList(inventoryGerman, symbolList, "+long", "");
 	expect(selectionCharacters(featureList)).toEqual([
 		"u" + DIA.LONG,
@@ -51,14 +51,14 @@ test("diacritic in inventory changes features", async () => {
 	]);
 });
 
-test("finds diacritics for opposing feature", async () => {
+test("finds diacritics for opposing feature", () => {
 	const featureList = new FeatureList(inventoryHypothetical, symbolList, "+front, -voice", "+back");
 	expect(selectionCharacters(featureList)).toEqual(["k" + DIA.FRONTED, "x" + DIA.FRONTED]);
 	expect(resultCharacters(featureList)).toEqual(["k" + DIA.BACKED, "x" + DIA.BACKED]);
 	expect(featureList.messages[0].title === "Additional feature changes were added");
 });
 
-test("finds diacritic for different base character", async () => {
+test("finds diacritic for different base character", () => {
 	const featureList = new FeatureList(
 		inventoryHypothetical,
 		symbolList,
@@ -73,7 +73,7 @@ test("finds diacritic for different base character", async () => {
 	expect(featureList.messages[0].title === "Unnecessary features are selected");
 });
 
-test("reasonable label after multiple changes", async () => {
+test("reasonable label after multiple changes", () => {
 	const featureList = new FeatureList(
 		inventoryHypothetical,
 		symbolList,
@@ -100,7 +100,7 @@ test("reasonable label after multiple changes", async () => {
 	]);
 });
 
-test("changes between diacritics", async () => {
+test("changes between diacritics", () => {
 	const featureList = new FeatureList(inventoryKorean, symbolList, "-delayed release", "+voice");
 	expect(selectionCharacters(featureList)).toEqual([
 		"p",
@@ -126,7 +126,7 @@ test("changes between diacritics", async () => {
 	]);
 });
 
-test("converts to affricates", async () => {
+test("converts to affricates", () => {
 	const featureList = new FeatureList(
 		inventoryHypothetical,
 		symbolList,
@@ -143,7 +143,7 @@ test("converts to affricates", async () => {
 	]);
 });
 
-test("finds affricate with double diacritics", async () => {
+test("finds affricate with double diacritics", () => {
 	const featureList = new FeatureList(
 		inventoryHypothetical,
 		symbolList,
@@ -158,7 +158,7 @@ test("finds affricate with double diacritics", async () => {
 	]);
 });
 
-test("reasonable multiple diacritics", async () => {
+test("reasonable multiple diacritics", () => {
 	const featureList = new FeatureList(inventoryKorean, symbolList, "+dorsal, -sonorant", "+front");
 	expect(selectionCharacters(featureList)).toEqual(["k", "k" + DIA.ASPIRATED, "k" + DIA.EJECTIVE]);
 	expect(resultCharacters(featureList)).toEqual([
@@ -169,7 +169,7 @@ test("reasonable multiple diacritics", async () => {
 	]);
 });
 
-test("changes between diacritics", async () => {
+test("changes between diacritics", () => {
 	const featureList = new FeatureList(
 		inventoryKorean,
 		symbolList,
