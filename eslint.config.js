@@ -1,5 +1,6 @@
 import js from "@eslint/js";
 import globals from "globals";
+import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
@@ -17,15 +18,20 @@ export default tseslint.config(
 			ecmaVersion: 2020,
 			globals: globals.browser,
 			parserOptions: {
+				...react.configs.flat.recommended.languageOptions,
 				project: ["./tsconfig.node.json", "./tsconfig.app.json"],
 				tsconfigRootDir: import.meta.dirname,
 			},
 		},
+		settings: { react: { version: "detect" } },
 		plugins: {
+			react,
 			"react-hooks": reactHooks,
 			"react-refresh": reactRefresh,
 		},
 		rules: {
+			...react.configs.recommended.rules,
+			...react.configs["jsx-runtime"].rules,
 			...reactHooks.configs.recommended.rules,
 			"@typescript-eslint/dot-notation": ["error", { allowIndexSignaturePropertyAccess: true }],
 			"@typescript-eslint/no-confusing-void-expression": ["error", { ignoreArrowShorthand: true }],
