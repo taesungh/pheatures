@@ -14,7 +14,7 @@ class Diacritics {
 	constructor(diacriticsTable: string[][]) {
 		this.items = diacriticsTable.map(([description, label, fromQuery, toQuery]) => {
 			label = label.trim();
-			if (label.match(/\d+/)) {
+			if (/\d+/.test(label)) {
 				// numerical labels are converted to their unicode character
 				label = String.fromCharCode(Number(label));
 			}

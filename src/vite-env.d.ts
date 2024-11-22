@@ -1,3 +1,11 @@
 /// <reference types="vite/client" />
-declare module "*.inv";
-declare module "*.tsv";
+
+type Path = string;
+function pathString(): Path;
+
+declare module "*.inv" {
+	export default pathString();
+}
+declare module "*.tsv" {
+	export default pathString();
+}

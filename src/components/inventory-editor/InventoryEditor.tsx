@@ -73,7 +73,7 @@ function InventoryEditor({
 		<Dialog open={open} maxWidth="lg">
 			<DialogTitle>Edit Phoneme Inventory</DialogTitle>
 			<Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-				<Tabs value={selectedTab} onChange={(_, v) => setSelectedTab(v)}>
+				<Tabs value={selectedTab} onChange={(_, v: TableTabs) => setSelectedTab(v)}>
 					<Tab label="consonants" value="consonants" />
 					<Tab label="other" value="other" />
 					<Tab label="vowels" value="vowels" />

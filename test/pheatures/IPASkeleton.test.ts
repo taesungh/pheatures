@@ -12,7 +12,7 @@ import symbolList from "./SymbolList.test";
 const consonantsChart = parseFile<string[]>(consonantChartsPath, false);
 const skeleton = new IPASkeleton(consonantsChart, symbolList);
 
-test("finds reasonable base candidate: aspirated backed velar plosive", async () => {
+test("finds reasonable base candidate: aspirated backed velar plosive", () => {
 	const symbol = ComplexSymbol.fromBaseSymbol(symbolList.symbols["k"], [
 		diacriticList.getFromName("backed velar"),
 		diacriticList.getFromName("aspirated"),
@@ -21,7 +21,7 @@ test("finds reasonable base candidate: aspirated backed velar plosive", async ()
 	expect(coordinates).toEqual([1, 11]);
 });
 
-test("finds reasonable base candidate: stressed postalveolar plosive", async () => {
+test("finds reasonable base candidate: stressed postalveolar plosive", () => {
 	const symbol = ComplexSymbol.fromBaseSymbol(symbolList.symbols["t"], [
 		diacriticList.getFromName("postalveolar"),
 		diacriticList.getFromName("stressed"),

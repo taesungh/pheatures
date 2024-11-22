@@ -5,9 +5,7 @@ import FeatureSpecification, {
 	FeatureValue,
 } from "./FeatureSpecification";
 
-export interface RawSymbol {
-	[index: string]: string;
-}
+export type RawSymbol = Record<"Unicode" | "Sound" | FeatureName, string>;
 
 // A symbol represents one segment and its features
 class BaseSymbol {

@@ -2,6 +2,8 @@ import BaseSymbol, { RawSymbol } from "./BaseSymbol";
 
 // Holds the feature data of the base symbols, those without diacritics
 class BaseSymbolList {
+	// TODO: consider changing to Map
+	// eslint-disable-next-line @typescript-eslint/consistent-indexed-object-style
 	symbols: {
 		[index: string]: BaseSymbol;
 	};
